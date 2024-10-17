@@ -2,6 +2,7 @@
 
 * Студент: [Ольга Чулакова](https://up.htmlacademy.ru/javascript/33/user/2530959).
 * Наставник: [Александр Сударев](https://htmlacademy.ru/profile/id1152185).
+* Сайт: [Мой проект Кекстаграм](https://github.com/Olga-Chulakova/2530959-kekstagram-33)
 
 ---
 
