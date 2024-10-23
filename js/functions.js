@@ -6,7 +6,7 @@ function checkLengthString(string, maxLength) {
   return false;
 }
 
-console.log(checkLengthString('проверяемая строка', 18));
+checkLengthString('проверяемая строка', 18);
 
 // Строка короче 20 символов
 checkLengthString('проверяемая строка', 20); // true
@@ -33,7 +33,7 @@ function isPolydrom(string) {
   return false;
 }
 
-console.log(isPolydrom('ДовОд '));
+isPolydrom('ДовОд ');
 
 // Строка является палиндромом
 isPolydrom('топот'); // true
@@ -53,7 +53,7 @@ function isPolyndrom(string) {
   return cleaned === reversed;
 }
 
-console.log(isPolyndrom('Лёша на полке клопа нашёл '));
+isPolyndrom('Лёша на полке клопа нашёл ');
 
 // Третья функция - до конца не решена!!!
 function extractNumbers(str) {
@@ -65,4 +65,4 @@ function extractNumbers(str) {
   }
   return numbers;
 }
-console.log(extractNumbers('агент 007'));
+extractNumbers('агент 007');
