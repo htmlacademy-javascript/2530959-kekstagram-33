@@ -15,6 +15,7 @@ checkLengthString('проверяемая строка', 18); // true
 // Строка длиннее 10 символов
 checkLengthString('проверяемая строка', 10); // false
 
+
 // Вторая функция - первый вариант решения
 function isReverse(string) {
   let revStr = '';
