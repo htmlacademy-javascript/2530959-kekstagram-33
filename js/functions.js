@@ -26,7 +26,7 @@ function isReverse(string) {
 }
 function isPolydrom(string) {
   string = string.replaceAll(' ', '').toLowerCase();
-  revString = isReverse(string);
+  const revString = isReverse(string);
   if (revString === string) {
     return true;
   }
