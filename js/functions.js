@@ -2,9 +2,9 @@
 function checkLengthString(string, maxLength) {
   if (string.length <= maxLength) {
     return true;
-  } 
-    return false;
-};
+  }
+  return false;
+}
 
 console.log(checkLengthString('проверяемая строка', 18));
 
@@ -18,42 +18,42 @@ checkLengthString('проверяемая строка', 10); // false
 
 // Вторая функция - первый вариант решения
 function isReverse(string) {
-  let revStr = '';
+  let revString = '';
   for (let i = string.length - 1; i >= 0; i--) {
-    revStr += string[i];
+    revString += string[i];
   }
-  return revStr;
-};
+  return revString;
+}
 function isPolydrom(string) {
   string = string.replaceAll(' ', '').toLowerCase();
-  revStr = isReverse(string);
-  if (revStr === string) {
+  revString = isReverse(string);
+  if (revString === string) {
     return true;
   }
-    return false;
-};
+  return false;
+}
 
-console.log(isPolydrom('довОд'));
- 
+console.log(isPolydrom('ДовОд '));
+
 // Строка является палиндромом
 isPolydrom('топот'); // true
 // Несмотря на разный регистр, тоже палиндром
-isPolydrom('ДовОд'); // true
+isPolydrom('ДовОд '); // true
 // Это не палиндром
-isPolydrom('Кекс');  // false
+isPolydrom('Кекс'); // false
 // Это палиндром
 isPolydrom('Лёша на полке клопа нашёл '); // true
 
 
 // Вторая функция - второй вариант решения
-function isPolydrom(string) {
-const cleaned = string.replaceAll(' ', '').toLowerCase();
-const reversed = cleaned.split('').reverse().join('');
+function isPolyndrom(string) {
+  const cleaned = string.replaceAll(' ', '').toLowerCase();
+  const reversed = cleaned.split('').reverse().join('');
 
-return cleaned === reversed;
-};
+  return cleaned === reversed;
+}
 
-console.log(isPolydrom('Лёша на полке клопа нашёл '));
+console.log(isPolyndrom('Лёша на полке клопа нашёл '));
 
 // Третья функция - до конца не решена!!!
 function extractNumbers(str) {
