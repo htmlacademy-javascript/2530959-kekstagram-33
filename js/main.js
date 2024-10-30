@@ -83,3 +83,7 @@ const createPhoto = () => {
 };
 
 const generatePhoto = Array.from({ length: 25 }, createPhoto);
+
+const generationAll = () => generatePhoto;
+
+generationAll();
