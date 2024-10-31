@@ -1,3 +1,5 @@
+const PHOTO_COUNTER = 25;
+
 const NAMES = [
   'Ольга',
   'Тимур',
@@ -82,7 +84,7 @@ const createPhoto = () => {
   };
 };
 
-const generatePhoto = Array.from({ length: 25 }, createPhoto);
+const generatePhoto = Array.from({ length: PHOTO_COUNTER }, createPhoto);
 
 const generationAll = () => generatePhoto;
 
