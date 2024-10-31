@@ -36,13 +36,13 @@ const DESCRIPTION = [
   'Кот сидит на подоконнике и смотрит в окно.'
 ];
 
-const minLikes = 15;
-const maxLikes = 200;
-const minAvatar = 1;
-const maxAvatar = 6;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const MIN_AVATAR = 1;
+const MAX_AVATAR = 6;
 
 let currentCommentId = 0;
-let currentId = 0;
+let currentPostId = 0;
 let currentUrl = 0;
 
 const getRandomInteger = (a, b) => {
@@ -56,7 +56,7 @@ const createComments = () => {
   currentCommentId++;
   const randomNameIndex = getRandomInteger(0, NAMES.length - 1);
   const randonMessageIndex = getRandomInteger(0, MESSAGE.length - 1);
-  const randomAvatarIndex = getRandomInteger(minAvatar, maxAvatar);
+  const randomAvatarIndex = getRandomInteger(MIN_AVATAR, MAX_AVATAR);
 
   return {
     id: currentCommentId,
@@ -66,17 +66,16 @@ const createComments = () => {
   };
 };
 
-const generateComments = Array.from({ length: getRandomInteger(0, 30) }, createComments);
-
-
 const createPhoto = () => {
-  currentId++;
+  currentPostId++;
   currentUrl++;
   const randomDescriptionIndex = getRandomInteger(0, DESCRIPTION.length - 1);
-  const randomLikesIndex = getRandomInteger(minLikes, maxLikes);
+  const randomLikesIndex = getRandomInteger(MIN_LIKES, MAX_LIKES);
+
+  const generateComments = Array.from({ length: getRandomInteger(0, 30) }, createComments);
 
   return {
-    id: currentId,
+    id: currentPostId,
     url: `photos/${currentUrl}.jpg`,
     description: DESCRIPTION[randomDescriptionIndex],
     likes: randomLikesIndex,
