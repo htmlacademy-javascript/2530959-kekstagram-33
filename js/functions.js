@@ -1,3 +1,18 @@
+// ДЗ 5.16
+const checkWorkTime = (startWork, endWork, startMeeting, timeMeeting) => {
+  let startWorkInMinutes = (+startWork.split(':')[0] * 60 + (+startWork.split(':')[1]));
+  let endWorkInMinutes = (+endWork.split(':')[0] * 60 + (+endWork.split(':')[1]));
+  let startMeetingInMinutes = (+startMeeting.split(':')[0] * 60 + (+startMeeting.split(':')[1]));
+
+  if (startWorkInMinutes <= startMeetingInMinutes && endWorkInMinutes >= startMeetingInMinutes + timeMeeting) {
+    return true;
+  }
+  return false;
+};
+
+console.log(checkWorkTime ('08:00', '17:30', '14:00', 90));
+
+
 // Первая функция
 function checkLengthString(string, maxLength) {
   if (string.length <= maxLength) {
