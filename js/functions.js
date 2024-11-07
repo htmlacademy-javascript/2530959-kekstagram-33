@@ -10,7 +10,7 @@ const checkWorkTime = (startWork, endWork, startMeeting, timeMeeting) => {
   return false;
 };
 
-console.log(checkWorkTime ('08:00', '17:30', '14:00', 90));
+checkWorkTime ('08:00', '17:30', '14:00', 90);
 
 
 // Первая функция
