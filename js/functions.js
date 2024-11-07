@@ -1,8 +1,8 @@
 // ДЗ 5.16
 const checkWorkTime = (startWork, endWork, startMeeting, timeMeeting) => {
-  let startWorkInMinutes = (+startWork.split(':')[0] * 60 + (+startWork.split(':')[1]));
-  let endWorkInMinutes = (+endWork.split(':')[0] * 60 + (+endWork.split(':')[1]));
-  let startMeetingInMinutes = (+startMeeting.split(':')[0] * 60 + (+startMeeting.split(':')[1]));
+  const startWorkInMinutes = (+startWork.split(':')[0] * 60 + (+startWork.split(':')[1]));
+  const endWorkInMinutes = (+endWork.split(':')[0] * 60 + (+endWork.split(':')[1]));
+  const startMeetingInMinutes = (+startMeeting.split(':')[0] * 60 + (+startMeeting.split(':')[1]));
 
   if (startWorkInMinutes <= startMeetingInMinutes && endWorkInMinutes >= startMeetingInMinutes + timeMeeting) {
     return true;
