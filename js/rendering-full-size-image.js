@@ -14,7 +14,7 @@ const pictureModalDescription = bigPictureModal.querySelector('.social__caption'
 const loadComments = bigPictureModal.querySelector('.comments-loader');
 const socialCommentsCount = bigPictureModal.querySelector('.social__comment-count');
 
-let commentsCount = COMMENTS_STEP;
+const commentsCount = COMMENTS_STEP;
 const currentComments = [];
 
 const renderCommentsInPicture = (comments) => {
@@ -31,14 +31,18 @@ const renderCommentsInPicture = (comments) => {
 
 };
 
-const renderCommentsLoad = () => {
-  commentsCount = (commentsCount > currentComments.length) ? currentComments.length : commentsCount;
-  const commentsSelected = currentComments.slice(0, commentsCount);
-  for (let i = 0; i < commentsSelected.length; i++) {
-    renderCommentsInPicture(commentsSelected[i]);
-  }
-
-};
+// const renderCommentsLoad = () => {
+//   commentsCount = (commentsCount > currentComments.length) ? currentComments.length : commentsCount;
+//   const commentsSelected = currentComments.slice(0, commentsCount);
+//   for (let i = 0; i < commentsSelected.length; i++) {
+//     renderCommentsInPicture(commentsSelected[i]);
+//   }
+//   if (currentComments.length <= COMMENTS_STEP || commentsCount >= currentComments.length) {
+//     loadComments.classList.add('hidden');
+//   } else {
+//     loadComments.classList.remove('hidden');
+//   }
+// };
 
 const deleteComments = () => {
   pictureListComments.innerHTML = '';
