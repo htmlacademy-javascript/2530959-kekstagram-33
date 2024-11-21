@@ -11,7 +11,7 @@ const similarListFragment = document.createDocumentFragment();
 const renderPhotoList = () => {
   similarPhotos.forEach((photo) => {
     const photoElement = pictureTemplate.cloneNode(true);
-    
+
     const onPictureElementClick = (evt) => {
       evt.preventDefault();
       openBigPicture(photo);
