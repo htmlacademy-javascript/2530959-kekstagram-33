@@ -12,7 +12,6 @@ const pictureModalCommentCount = bigPictureModal.querySelector('.social__comment
 const pictureModalCommentTotalCount = bigPictureModal.querySelector('.social__comment-total-count');
 const pictureModalDescription = bigPictureModal.querySelector('.social__caption');
 const loadComments = bigPictureModal.querySelector('.comments-loader');
-const socialCommentsCount = bigPictureModal.querySelector('.social__comment-count');
 
 const commentFragment = document.createDocumentFragment();
 
@@ -27,7 +26,7 @@ const renderCommentsInPicture = (comment) => {
   avatar.src = comment.avatar;
   avatar.alt = comment.name;
   const commentTextElement = newComment.querySelector('.social__text');
-      commentTextElement.textContent = comment.message;
+  commentTextElement.textContent = comment.message;
 
   return newComment;
 };
@@ -48,12 +47,12 @@ const renderCommentsLoad = () => {
   if (currentComments.length <= COMMENTS_STEP || commentsCount >= currentComments.length) {
     loadComments.classList.add('hidden');
   } else {
-    loadComments.classList.remove('hidden')
+    loadComments.classList.remove('hidden');
   }
 
   pictureModalCommentCount.textContent = commentsCount;
 
-  pictureListComments.appendChild(commentFragment)
+  pictureListComments.appendChild(commentFragment);
 };
 
 const renderBigPicture = (photo) => {
@@ -68,7 +67,7 @@ const renderBigPicture = (photo) => {
 const onLoadButtonButtonClick = () => {
   commentsCount += COMMENTS_STEP;
   renderCommentsLoad();
-}
+};
 
 const openbigPictureModal = () => {
   bigPictureModal.classList.remove('hidden');
