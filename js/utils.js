@@ -9,4 +9,10 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+// const toggleClass = (element, className = '') => {
+//   if (element) {
+//     element.classList.toggle(className);
+//   }
+// };
+
 export { getRandomInteger, getRandomArrayElement, isEscapeKey };

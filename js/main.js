@@ -1,4 +1,4 @@
-import { renderPhotoList } from './rendering-photos.js';
+import { renderPhotoList } from './rendering-miniatures.js';
 renderPhotoList();
 
 
