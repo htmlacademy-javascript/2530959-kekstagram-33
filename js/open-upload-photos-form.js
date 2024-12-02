@@ -8,68 +8,65 @@ const closeFormDOMElement = formUploadDOMElement.querySelector('.img-upload__can
 const uploudImageFormDOMElement = document.querySelector('#upload-select-image');
 
 const hashtagsInputDOMElement = formUploadDOMElement.querySelector('.text__hashtags');
-const commentFieldDOMEElement = formUploadDOMElement.querySelector('.text__description');
-
+const commentFieldDOMElement = formUploadDOMElement.querySelector('.text__description');
 
 
 const clickOpenFormModal = () => {
-    imgUploadInputDOMElement .addEventListener('change', (evt) => {
-        evt.preventDefault();
-        showFormDOMElement.classList.remove('hidden');
-        document.body.classList.add('modal-open');
-        document.addEventListener('keydown', onCloseEscKeydown);
-        closeFormDOMElement.addEventListener('click', clickCloseFormModal);
-    });
-  };
-  
-
-  const onAddEvent = () => {
+  imgUploadInputDOMElement.addEventListener('change', (evt) => {
+    evt.preventDefault();
+    showFormDOMElement.classList.remove('hidden');
+    document.body.classList.add('modal-open');
     document.addEventListener('keydown', onCloseEscKeydown);
-  };
-  
-  const onRemoveEnent = () => {
-    document.removeEventListener('keydown', onCloseEscKeydown);
-  };
+    closeFormDOMElement.addEventListener('click', clickCloseFormModal);
+  });
+};
 
-  const clickCloseFormModal = () => {
-    showFormDOMElement.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-    document.removeEventListener('keydown', onCloseEscKeydown);
-    closeFormDOMElement.removeEventListener('click', clickCloseFormModal);
-    uploudImageFormDOMElement.reset();
-    commentFieldDOMEElement.removeEventListener('focus', onRemoveEnent);
-    commentFieldDOMEElement.removeEventListener('blur', onAddEvent);
-  };
-  
-  function onCloseEscKeydown (evt) {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      clickCloseFormModal();
-    };
-  };
 
-  const removeHashtagEscKeydown = () => {
-    hashtagsInputDOMElement.addEventListener('focus', onRemoveEnent);
-  };
+const onAddEventEscClose = () => {
+  document.addEventListener('keydown', onCloseEscKeydown);
+};
 
-  const removeCommentsEscKeydown = () => {
-    commentFieldDOMEElement.addEventListener('focus', onRemoveEnent);
-  };
+const onRemoveEnentEscClose = () => {
+  document.removeEventListener('keydown', onCloseEscKeydown);
+};
 
-  const addHandlerBlurHashtag = () => {
-    hashtagsInputDOMElement.addEventListener('blur', onAddEvent);
-  };
+function clickCloseFormModal() {
+  showFormDOMElement.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onCloseEscKeydown);
+  closeFormDOMElement.removeEventListener('click', clickCloseFormModal);
+  uploudImageFormDOMElement.reset();
+}
 
-  const addHandlerCommentsInputs = () => {
-    commentFieldDOMEElement.addEventListener('blur', onAddEvent);
-  };
+function onCloseEscKeydown (evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    clickCloseFormModal();
+  }
+}
 
-  const openFormModal = () => {
-    clickOpenFormModal();
-    removeHashtagEscKeydown(); 
-    removeCommentsEscKeydown();
-    addHandlerBlurHashtag();
-    addHandlerCommentsInputs();
-  };
+const removeHashtagEscKeydown = () => {
+  hashtagsInputDOMElement.addEventListener('focus', onRemoveEnentEscClose);
+};
+
+const removeCommentsEscKeydown = () => {
+  commentFieldDOMElement.addEventListener('focus', onRemoveEnentEscClose);
+};
+
+const addHandlerBlurHashtag = () => {
+  hashtagsInputDOMElement.addEventListener('blur', onAddEventEscClose);
+};
+
+const addHandlerBlurComments = () => {
+  commentFieldDOMElement.addEventListener('blur', onAddEventEscClose);
+};
+
+const openFormModal = () => {
+  clickOpenFormModal();
+  removeHashtagEscKeydown();
+  removeCommentsEscKeydown();
+  addHandlerBlurHashtag();
+  addHandlerBlurComments();
+};
 
 export {openFormModal};

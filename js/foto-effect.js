@@ -12,35 +12,35 @@ const MIN_STEP = 0.1;
 const MAX_STEP = 1;
 
 noUiSlider.create(sliderDomElement, {
-    range: {
-        min: 0, 
-        max: 100,
+  range: {
+    min: 0,
+    max: 100,
+  },
+  start: 100,
+  step: 1,
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
     },
-    start: 100,
-    step: 1,
-    connect: 'lower',
-    format: {
-        to: function (value) {
-            if (Number.isInteger(value)) {
-                return value.toFixed(0);
-            }
-            return value.toFixed(1);
-        },
-        from: function (value) {
-            return parseFloat(value);
-        },
+    from: function (value) {
+      return parseFloat(value);
     },
+  },
 });
 
 const changeEffectOnPhoto = (isDefault) => {
-if (isDefault) {
+  if (isDefault) {
     sliderContainer.classList.add('hidden');
     imgUploadPreviewDOMElement.style.filter = '';
-} else {
+  } else {
     sliderContainer.classList.remove('hidden');
+  }
 };
-}
 
 sliderDomElement.noUiSlider.on('update', () => {
-    const f = sliderDomElement.noUiSlider.get();
-})
+  const f = sliderDomElement.noUiSlider.get();
+});
