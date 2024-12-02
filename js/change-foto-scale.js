@@ -1,7 +1,7 @@
 const smallScaleImgDOMELEMENT = document.querySelector('.scale__control--smaller');
 const bigScaleImgDOMElement = document.querySelector('.scale__control--bigger');
 const defaultImgSizeDOMEElement = document.querySelector('.scale__control--value');
-const imgUploadPreviewDOMElement = document.querySelector('.img-upload__preview');
+const imgUploadPreviewDOMElement = document.querySelector('.img-upload__preview img');
 const MAX_VALUE = 100;
 const STEP = 25;
 

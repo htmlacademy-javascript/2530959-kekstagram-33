@@ -62,22 +62,10 @@ const pristine = new Pristine(formUploadDOMElement, {
 
   const getHashtagErrorMessage = () => hashtagErrorMessage[0] ?? '';
 
-  const getCommentErroeMessage = () => dataCommentField.MESSAGE_ERROR;
+  const getCommentErrorMessage = () => dataCommentField.MESSAGE_ERROR;
 
   pristine.addValidator(hashtagsInputDOMElement, validateHashtagField, getHashtagErrorMessage);
-  pristine.addValidator(commentFieldDOMEElement, validateCommentField, getCommentErroeMessage);
-
-  hashtagsInputDOMElement.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      stopPropagation(evt);
-    }
-  });
-  
-  commentFieldDOMEElement.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      stopPropagation(evt);
-    }
-  });
+  pristine.addValidator(commentFieldDOMEElement, validateCommentField, getCommentErrorMessage);
 
   const checkValidateForm = () => {
     formUploadDOMElement.addEventListener('submit', (evt) => {
