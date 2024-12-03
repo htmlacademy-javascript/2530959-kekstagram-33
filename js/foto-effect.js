@@ -3,16 +3,16 @@ import { noUiSliderValue, renderEffect } from './data-foto-effect.js';
 const imgUploadDomElement = document.querySelector('.img-upload__overlay');
 const levelEffectDomElement = imgUploadDomElement.querySelector('.effect-level__value');
 const sliderDomElement = imgUploadDomElement.querySelector('.effect-level__slider');
-const imgUploadPreviewDOMElement = document.querySelector('.img-upload__preview img');
+const imgUploadPreviewDOMElement = imgUploadDomElement.querySelector('.img-upload__preview img');
 const sliderContainer = imgUploadDomElement.querySelector('.img-upload__effect-level');
 
-const EffectsDOMElement = document.querySelector('.effects');
-const effectNoneId = EffectsDOMElement.querySelector('#effect-none').id;
-const effectChromeId = EffectsDOMElement.querySelector('#effect-chrome').id;
-const effectSepiaId = EffectsDOMElement.querySelector('#effect-sepia').id;
-const effectMarvinId = EffectsDOMElement.querySelector('#effect-marvin').id;
-const effectPhobosId = EffectsDOMElement.querySelector('#effect-phobos').id;
-const effectHeatId = EffectsDOMElement.querySelector('#effect-heat').id;
+const effectsDOMElement = imgUploadDomElement.querySelector('.effects');
+const effectNoneId = effectsDOMElement.querySelector('#effect-none').id;
+const effectChromeId = effectsDOMElement.querySelector('#effect-chrome').id;
+const effectSepiaId = effectsDOMElement.querySelector('#effect-sepia').id;
+const effectMarvinId = effectsDOMElement.querySelector('#effect-marvin').id;
+const effectPhobosId = effectsDOMElement.querySelector('#effect-phobos').id;
+const effectHeatId = effectsDOMElement.querySelector('#effect-heat').id;
 
 noUiSlider.create(sliderDomElement, {
   range: {
