@@ -1,5 +1,5 @@
 import { isEscapeKey } from './utils.js';
-import { selectionEffect } from './foto-effect.js'
+import { selectionEffect } from './foto-effect.js';
 
 const formUploadDOMElement = document.querySelector('.img-upload__form');
 const imgUploadInputDOMElement = formUploadDOMElement.querySelector('.img-upload__input');

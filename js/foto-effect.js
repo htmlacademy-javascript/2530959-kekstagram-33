@@ -55,11 +55,11 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
       imgUploadPreviewDOMElement.style.filter = filterStyle(currentValue);
       levelEffectDomElement.setAttribute('value', `${currentValue}`);
     });
-  };
+  }
 };
 
 const selectionEffect = (evt) => {
-    switch (evt.target.id) {
+  switch (evt.target.id) {
     case effectHeatId: {
       changeEffectOnPhoto(renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MAX_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `brightness(${currentValue})`, false);
       break;
@@ -85,7 +85,7 @@ const selectionEffect = (evt) => {
       break;
     }
     default: changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.ZERO_VALUE, renderEffect.ZERO_VALUE, '', true);
-  };
+  }
 };
 
 export { selectionEffect };
