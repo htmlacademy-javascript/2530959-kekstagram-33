@@ -14,14 +14,6 @@ const effectMarvinId = EffectsDOMElement.querySelector('#effect-marvin').id;
 const effectPhobosId = EffectsDOMElement.querySelector('#effect-phobos').id;
 const effectHeatId = EffectsDOMElement.querySelector('#effect-heat').id;
 
-// const MIN_VALUE_EFFECT = 0;
-// const MAX_VALUE_EFFECT = 3;
-// const MAX_ONE_VALUE_EFFECT = 1;
-// const MAX_HUNDRED_VALUE_EFFECT = 100;
-// const MIN_STEP = 0.1;
-// const MAX_STEP = 1;
-// const ZERO_VALUE = 0;
-
 noUiSlider.create(sliderDomElement, {
   range: {
     min: noUiSliderValue.MIN_VALUE,
@@ -55,7 +47,7 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
         min: min,
         max: max,
       },
-      start: 100,
+      start: noUiSliderValue.START_VALUE,
       step: step,
     });
     sliderDomElement.noUiSlider.on('update', () => {
@@ -63,7 +55,7 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
       imgUploadPreviewDOMElement.style.filter = filterStyle(currentValue);
       levelEffectDomElement.setAttribute('value', `${currentValue}`);
     });
-  }
+  };
 };
 
 const selectionEffect = (evt) => {
