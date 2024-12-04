@@ -5,25 +5,32 @@ const imgUploadPreviewDOMElement = document.querySelector('.img-upload__preview 
 const MAX_VALUE = 100;
 const STEP = 25;
 
+let changeScaleValue = defaultImgSizeDOMEElement.value;
+
 const changeScalePhoto = () => {
   smallScaleImgDOMELEMENT.addEventListener('click', () => {
-    let numberValueSmallImg = parseFloat(defaultImgSizeDOMEElement.value);
-    if (numberValueSmallImg > STEP) {
-      numberValueSmallImg -= STEP;
-      defaultImgSizeDOMEElement.value = `${numberValueSmallImg}%`;
-      imgUploadPreviewDOMElement.style.transform = `scale(${numberValueSmallImg / MAX_VALUE})`;
+    changeScaleValue = parseFloat(defaultImgSizeDOMEElement.value);
+    if (changeScaleValue > STEP) {
+      changeScaleValue -= STEP;
+      defaultImgSizeDOMEElement.value = `${changeScaleValue}%`;
+      imgUploadPreviewDOMElement.style.transform = `scale(${changeScaleValue / MAX_VALUE})`;
     }
   });
 
   bigScaleImgDOMElement.addEventListener('click', () => {
-    let numberValueBigImg = parseFloat(defaultImgSizeDOMEElement.value);
-    if (numberValueBigImg < MAX_VALUE) {
-      numberValueBigImg += STEP;
-      defaultImgSizeDOMEElement.value = `${numberValueBigImg}%`;
-      imgUploadPreviewDOMElement.style.transform = `scale(${numberValueBigImg / MAX_VALUE})`;
+    changeScaleValue = parseFloat(defaultImgSizeDOMEElement.value);
+    if (changeScaleValue < MAX_VALUE) {
+      changeScaleValue += STEP;
+      defaultImgSizeDOMEElement.value = `${changeScaleValue}%`;
+      imgUploadPreviewDOMElement.style.transform = `scale(${changeScaleValue / MAX_VALUE})`;
     }
   });
 
 };
 
-export {changeScalePhoto};
+const resetScaleValue = () => {
+  changeScaleValue = MAX_VALUE;
+  defaultImgSizeDOMEElement.setAttribute('value', `${MAX_VALUE}%`);
+};
+
+export { changeScalePhoto, resetScaleValue };

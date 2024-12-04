@@ -1,11 +1,16 @@
 import { isEscapeKey } from './utils.js';
+import { selectionEffect } from './foto-effect.js';
+import { resetScaleValue } from './change-foto-scale.js';
 
 const formUploadDOMElement = document.querySelector('.img-upload__form');
 const imgUploadInputDOMElement = formUploadDOMElement.querySelector('.img-upload__input');
 const showFormDOMElement = formUploadDOMElement.querySelector('.img-upload__overlay');
 const closeFormDOMElement = formUploadDOMElement.querySelector('.img-upload__cancel');
+const sliderContainerDOMElement = formUploadDOMElement.querySelector('.img-upload__effect-level');
+const effectsListDOMElement = formUploadDOMElement.querySelector('.effects__list');
 
 const uploudImageFormDOMElement = document.querySelector('#upload-select-image');
+const imgUploadPreviewDOMElement = formUploadDOMElement.querySelector('.img-upload__preview img');
 
 const hashtagsInputDOMElement = formUploadDOMElement.querySelector('.text__hashtags');
 const commentFieldDOMElement = formUploadDOMElement.querySelector('.text__description');
@@ -18,6 +23,8 @@ const clickOpenFormModal = () => {
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onCloseEscKeydown);
     closeFormDOMElement.addEventListener('click', clickCloseFormModal);
+    sliderContainerDOMElement.classList.add('hidden');
+    effectsListDOMElement.addEventListener('change', selectionEffect);
   });
 };
 
@@ -36,6 +43,9 @@ function clickCloseFormModal() {
   document.removeEventListener('keydown', onCloseEscKeydown);
   closeFormDOMElement.removeEventListener('click', clickCloseFormModal);
   uploudImageFormDOMElement.reset();
+  effectsListDOMElement.removeEventListener('change', selectionEffect);
+  imgUploadPreviewDOMElement.removeAttribute('style');
+  resetScaleValue();
 }
 
 function onCloseEscKeydown (evt) {

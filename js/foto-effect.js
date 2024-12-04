@@ -1,33 +1,26 @@
+import { noUiSliderValue, renderEffect } from './data-foto-effect.js';
+
 const imgUploadDomElement = document.querySelector('.img-upload__overlay');
 const levelEffectDomElement = imgUploadDomElement.querySelector('.effect-level__value');
 const sliderDomElement = imgUploadDomElement.querySelector('.effect-level__slider');
-const imgUploadPreviewDOMElement = document.querySelector('.img-upload__preview img');
+const imgUploadPreviewDOMElement = imgUploadDomElement.querySelector('.img-upload__preview img');
 const sliderContainer = imgUploadDomElement.querySelector('.img-upload__effect-level');
 
-const listEffects = document.querySelector('.img-upload__effects');
-const effectNoneId = listEffects .querySelector('#effect-none').id;
-const effectChromeId = listEffects.querySelector('#effect-chrome').id;
-const effectSepiaId = listEffects.querySelector('#effect-sepia').id;
-const effectMarvinId = listEffects.querySelector('#effect-marvin').id;
-const effectPhobosId = listEffects.querySelector('#effect-phobos').id;
-const effectHeatId = listEffects.querySelector('#effect-heat').id;
-
-
-const MIN_VALUE_EFFECT = 0;
-const MAX_VALUE_EFFECT = 3;
-const MAX_ONE_VALUE_EFFECT = 1;
-const MAX_HUNDRED_VALUE_EFFECT = 100;
-const MIN_STEP = 0.1;
-const MAX_STEP = 1;
-const ZERO_VALUE = 0;
+const effectsDOMElement = imgUploadDomElement.querySelector('.effects');
+const effectNoneId = effectsDOMElement.querySelector('#effect-none').id;
+const effectChromeId = effectsDOMElement.querySelector('#effect-chrome').id;
+const effectSepiaId = effectsDOMElement.querySelector('#effect-sepia').id;
+const effectMarvinId = effectsDOMElement.querySelector('#effect-marvin').id;
+const effectPhobosId = effectsDOMElement.querySelector('#effect-phobos').id;
+const effectHeatId = effectsDOMElement.querySelector('#effect-heat').id;
 
 noUiSlider.create(sliderDomElement, {
   range: {
-    min: 0,
-    max: 100,
+    min: noUiSliderValue.MIN_VALUE,
+    max: noUiSliderValue.MAX_VALUE,
   },
-  start: 100,
-  step: 1,
+  start: noUiSliderValue.START_VALUE,
+  step: noUiSliderValue.STEP_VALUE,
   connect: 'lower',
   format: {
     to: function (value) {
@@ -54,7 +47,7 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
         min: min,
         max: max,
       },
-      start: 100,
+      start: noUiSliderValue.START_VALUE,
       step: step,
     });
     sliderDomElement.noUiSlider.on('update', () => {
@@ -68,30 +61,30 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
 const selectionEffect = (evt) => {
   switch (evt.target.id) {
     case effectHeatId: {
-      changeEffectOnPhoto(MAX_ONE_VALUE_EFFECT, MAX_VALUE_EFFECT, MIN_STEP, (currentValue) => `brightness(${currentValue})`, false);
+      changeEffectOnPhoto(renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MAX_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `brightness(${currentValue})`, false);
       break;
     }
     case effectPhobosId: {
-      changeEffectOnPhoto(MIN_VALUE_EFFECT, MAX_VALUE_EFFECT, MIN_STEP, (currentValue) => `blur(${currentValue}px)`, false);
+      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `blur(${currentValue}px)`, false);
       break;
     }
     case effectMarvinId: {
-      changeEffectOnPhoto(MIN_VALUE_EFFECT, MAX_HUNDRED_VALUE_EFFECT, MAX_STEP, (currentValue) => `invert(${currentValue}%)`, false);
+      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_HUNDRED_VALUE_EFFECT, renderEffect.MAX_STEP, (currentValue) => `invert(${currentValue}%)`, false);
       break;
     }
     case effectSepiaId: {
-      changeEffectOnPhoto(MIN_VALUE_EFFECT, MAX_ONE_VALUE_EFFECT, MIN_STEP, (currentValue) => `sepia(${currentValue})`, false);
+      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `sepia(${currentValue})`, false);
       break;
     }
     case effectChromeId: {
-      changeEffectOnPhoto(MIN_VALUE_EFFECT, MAX_ONE_VALUE_EFFECT, MIN_STEP, (currentValue) => `grayscale(${currentValue})`, false);
+      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `grayscale(${currentValue})`, false);
       break;
     }
     case effectNoneId: {
-      changeEffectOnPhoto(MIN_VALUE_EFFECT, ZERO_VALUE, ZERO_VALUE, '', true);
+      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.ZERO_VALUE, renderEffect.ZERO_VALUE, '', true);
       break;
     }
-    default: changeEffectOnPhoto(MIN_VALUE_EFFECT, ZERO_VALUE, ZERO_VALUE, '', true);
+    default: changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.ZERO_VALUE, renderEffect.ZERO_VALUE, '', true);
   }
 };
 
