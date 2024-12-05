@@ -1,8 +1,11 @@
-import {dataCommentField, dataHashtagField} from './data-validation-form.js';
+import {dataCommentField, dataHashtagField, submitButtonText} from './data-validation-form.js';
+import { messagesHandler } from './open-upload-photos-form-alert.js';
+import { sendData } from './api.js';
 
 const formUploadDOMElement = document.querySelector('.img-upload__form');
 const hashtagsInputDOMElement = formUploadDOMElement.querySelector('.text__hashtags');
 const commentFieldDOMElement = formUploadDOMElement.querySelector('.text__description');
+const submitButtonDOMElement = formUploadDOMElement.querySelector('#upload-submit');
 
 const pristine = new Pristine(formUploadDOMElement, {
   classTo: 'img-upload__field-wrapper',
@@ -67,15 +70,36 @@ const getCommentErrorMessage = () => dataCommentField.MESSAGE_ERROR;
 pristine.addValidator(hashtagsInputDOMElement, validateHashtagField, getHashtagErrorMessage);
 pristine.addValidator(commentFieldDOMElement, validateCommentField, getCommentErrorMessage);
 
-const checkValidateForm = () => {
+const blockSubmitButton = () => {
+  submitButtonDOMElement.disabled = true;
+  submitButtonDOMElement.textContent = `${submitButtonText.SENDING}`;
+};
+
+const unBlockSubmitButton = () => {
+  submitButtonDOMElement.disabled = false;
+  submitButtonDOMElement.textContent = `${submitButtonText.IDLE}`;
+};
+
+const setUploadFormSubmit = (closeForm) => {
   formUploadDOMElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     const isValid = pristine.validate();
     if (isValid) {
-      formUploadDOMElement.submit();
+      blockSubmitButton();
+      sendData(
+        () => {
+          messagesHandler('success');
+          closeForm();
+        },
+        () => {
+          messagesHandler('error');
+        },
+        () => {
+          unBlockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
     }
   });
 };
-
-export {checkValidateForm};
+export { setUploadFormSubmit };

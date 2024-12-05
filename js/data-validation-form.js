@@ -10,4 +10,9 @@ const dataHashtagField = Object.freeze({
   DUPLICATE_HASHTAGS: 'Хэштеги не должны повторяться'
 });
 
-export {dataCommentField, dataHashtagField};
+const submitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Опубликовываю...'
+};
+
+export { dataCommentField, dataHashtagField, submitButtonText };

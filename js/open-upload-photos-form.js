@@ -79,4 +79,4 @@ const openFormModal = () => {
   addHandlerBlurComments();
 };
 
-export {openFormModal};
+export { openFormModal, clickCloseFormModal };
