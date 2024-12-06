@@ -9,7 +9,7 @@ const pictureTemplate = document.querySelector('#picture').content.querySelector
 const renderPhotoList = (similarPhotos) => {
   const similarListFragment = document.createDocumentFragment();
 
-  dataForPosts.forEach((photo) => {
+  similarPhotos.forEach((photo) => {
     const photoElement = pictureTemplate.cloneNode(true);
 
     const onPictureElementClick = (evt) => {
