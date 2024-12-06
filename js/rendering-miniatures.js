@@ -1,12 +1,12 @@
 // import { generatePhoto } from './generate-photo-data.js';
 import { showBigPicture } from './rendering-full-size-image.js';
 
-// const containerPicturesElement = document.querySelector('.pictures');
+const containerPicturesElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 // const similarPhotos = generatePhoto();
 
-const renderPhotoList = (container, dataForPosts) => {
+const renderPhotoList = (similarPhotos) => {
   const similarListFragment = document.createDocumentFragment();
 
   dataForPosts.forEach((photo) => {
@@ -27,7 +27,7 @@ const renderPhotoList = (container, dataForPosts) => {
 
     similarListFragment.appendChild(photoElement);
   });
-  container.appendChild(similarListFragment);
+  containerPicturesElement.appendChild(similarListFragment);
 };
 
 export { renderPhotoList };
