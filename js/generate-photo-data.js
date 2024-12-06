@@ -1,7 +1,5 @@
 import { getRandomInteger, getRandomArrayElement } from './utils.js';
 
-import { PHOTO_COUNTER, NAMES, MESSAGE, DESCRIPTION, MIN_LIKES, MAX_LIKES, MIN_AVATAR, MAX_AVATAR } from './photo-data-const.js';
-
 let currentCommentId = 0;
 let currentPostId = 0;
 let currentUrl = 0;
