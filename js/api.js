@@ -14,7 +14,7 @@ const getData = (onSuccess, onFail) => {
   fetch(`${BASE_URL}${Route.GET_DATA}`)
     .then((response) => response.json())
     .then((posts) => {
-      onSuccess(document.querySelector('.pictures'), posts);
+      onSuccess(posts);
     })
     .catch(() => {
       onFail();

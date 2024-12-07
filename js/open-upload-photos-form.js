@@ -15,6 +15,19 @@ const imgUploadPreviewDOMElement = formUploadDOMElement.querySelector('.img-uplo
 const hashtagsInputDOMElement = formUploadDOMElement.querySelector('.text__hashtags');
 const commentFieldDOMElement = formUploadDOMElement.querySelector('.text__description');
 
+const onDeleteNotification = () => {
+  const pristineErrorDOMElement = document.querySelectorAll('.pristine-error');
+  pristineErrorDOMElement.forEach((item) => {
+    item.remove();
+  });
+};
+
+// const onShow = () => {
+//   const newDiv = document.createElement('div');
+//   newDiv.classList.add('pristine-error', 'img-upload__field-wrapper--error');
+//   newDiv.textContent = 'Хэштег доолжен начинаться с #';
+//   document.getElementsByClassName('img-upload__field-wrapper')[0].append(newDiv);
+// };
 
 const clickOpenFormModal = () => {
   imgUploadInputDOMElement.addEventListener('change', (evt) => {
@@ -46,6 +59,7 @@ function clickCloseFormModal() {
   effectsListDOMElement.removeEventListener('change', selectionEffect);
   imgUploadPreviewDOMElement.removeAttribute('style');
   resetScaleValue();
+  onDeleteNotification();
 }
 
 function onCloseEscKeydown (evt) {

@@ -102,4 +102,4 @@ const setUploadFormSubmit = (closeForm) => {
     }
   });
 };
-export { setUploadFormSubmit };
+export { setUploadFormSubmit, checkOnValidHashtag };

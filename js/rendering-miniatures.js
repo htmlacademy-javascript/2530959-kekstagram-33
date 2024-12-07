@@ -1,10 +1,7 @@
-// import { generatePhoto } from './generate-photo-data.js';
 import { showBigPicture } from './rendering-full-size-image.js';
 
 const containerPicturesElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
-// const similarPhotos = generatePhoto();
 
 const renderPhotoList = (similarPhotos) => {
   const similarListFragment = document.createDocumentFragment();

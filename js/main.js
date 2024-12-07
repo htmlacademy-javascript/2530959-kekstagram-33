@@ -11,7 +11,7 @@ openFormModal(document.querySelector('.img-upload__input'));
 changeScalePhoto();
 
 getData(
-  (picturesContainer, posts) => renderPhotoList(picturesContainer, posts),
+  (posts) => renderPhotoList(posts),
   () => messagesHandler('data-error'),
 );
 
