@@ -10,37 +10,40 @@ const Method = {
   POST: 'POST',
 };
 
-const getData = (onSuccess, onFail) => {
-  fetch(`${BASE_URL}${Route.GET_DATA}`)
-    .then((response) => response.json())
-    .then((posts) => {
-      onSuccess(posts);
-    })
-    .catch(() => {
+const getData = async (onSuccess, onFail) => {
+  try {
+    const response = await fetch(`${BASE_URL}${Route.GET_DATA}`);
+    if (!response.ok) {
       onFail();
-    });
+      return;
+    }
+    if (response.ok) {
+      const posts = await response.json();
+      onSuccess(posts);
+    }
+  } catch (error) {
+    onFail();
+  }
 };
 
-const sendData = (onSuccess, onFail, onHandlerFinally, body) => {
-  fetch(
-    `${BASE_URL}${Route.SEND_DATA}`,
-    {
+const sendData = async (onSuccess, onFail, onHandlerFinally, body) => {
+  try {
+    const response = await fetch(`${BASE_URL}${Route.SEND_DATA}`, {
       method: Method.POST,
       body,
-    },
-  ).then((response) => {
+    });
+    if (!response.ok) {
+      onFail();
+      return;
+    }
     if (response.ok) {
       onSuccess();
-    } else {
-      onFail();
     }
-  })
-    .catch(() => {
-      onFail();
-    })
-    .finally(() => {
-      onHandlerFinally();
-    });
+  } catch (error) {
+    onFail();
+  } finally {
+    onHandlerFinally();
+  }
 };
 
 export { getData, sendData };
