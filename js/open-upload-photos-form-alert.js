@@ -1,3 +1,5 @@
+import { isEscapeKey } from './utils.js';
+
 const ALERT_SHOW_TIME = 5000;
 const TAG_BUTTON = 'button';
 const CLASSNAME_INNER = 'inner';
@@ -8,35 +10,67 @@ const ErrorsStatus = {
   ERROR_STATUS: 'error'
 };
 
-const notificationModalHandler = (status) => {
-  const statusMessage = document.querySelector(`.${status}`);
-  const statusButtonDOMElement = statusMessage.querySelector(`.${status}__${TAG_BUTTON}`);
-  const removeMessage = () => {
-    statusMessage.remove();
-    document.removeEventListener('click', onClickHundler);
+const closeErrorStatusNotice = (status) => {
+  const statusNotice = document.querySelector(`.${status}`);
+  const statusButtonElement = statusNotice.querySelector(`.${status}__${TAG_BUTTON}`);
+  const onStatusButtonClick = () => {
+    statusNotice.remove();
+    document.removeEventListener('click', onDocumentClick);
   };
-  function onClickHundler (evt) {
+  function onDocumentClick (evt) {
     if (!evt.target.closest(`.${status}__${CLASSNAME_INNER}`)) {
-      removeMessage();
+      onStatusButtonClick();
     }
   }
-  statusButtonDOMElement.addEventListener('click', removeMessage);
-  document.addEventListener('click', onClickHundler);
+  statusButtonElement.addEventListener('click', onStatusButtonClick);
+  document.addEventListener('click', onDocumentClick);
 };
 
-const messagesHandler = (status) => {
+const closeSuccessStatusNotice = (status) => {
+  const statusNotice = document.querySelector(`.${status}`);
+  const statusButtonElement = statusNotice.querySelector(`.${status}__${TAG_BUTTON}`);
+  const onStatusButtonClick = () => {
+    statusNotice.remove();
+    document.removeEventListener('keydown', onEscKeydownDocument);
+    document.removeEventListener('click', onDocumentClick);
+  };
+  function onEscKeydownDocument (evt){
+    if (isEscapeKey(evt)) {
+      onStatusButtonClick();
+    }
+  }
+  function onDocumentClick (evt) {
+    if (!evt.target.closest(`.${status}__${CLASSNAME_INNER}`)) {
+      onStatusButtonClick();
+    }
+  }
+  statusButtonElement.addEventListener('click', onStatusButtonClick);
+  document.addEventListener('keydown', onEscKeydownDocument);
+  document.addEventListener('click', onDocumentClick);
+};
+
+const showstatusNotice = (status) => {
   const messageUploadTemplate = document.querySelector(`#${status}`).content.querySelector(`.${status}`);
-  const textMessage = messageUploadTemplate.cloneNode(true);
+  const textNotice = messageUploadTemplate.cloneNode(true);
   const container = document.body;
-  container.append(textMessage);
+  container.append(textNotice);
   if (status === ErrorsStatus.DATA_ERROR_STATUS) {
     setTimeout(() => {
-      textMessage.remove();
+      textNotice.remove();
     }, ALERT_SHOW_TIME);
+    return;
   }
-  if (status === ErrorsStatus.SUCCESS_STATUS || status === ErrorsStatus.ERROR_STATUS) {
-    notificationModalHandler(status);
+  if (status === ErrorsStatus.SUCCESS_STATUS) {
+    closeSuccessStatusNotice(status);
+    return;
+  }
+  if (status === ErrorsStatus.ERROR_STATUS) {
+    closeErrorStatusNotice(status);
   }
 };
 
-export { messagesHandler, ErrorsStatus };
+function closeKeyDownErrorstatusNotice (status) {
+  status.remove();
+}
+
+export { showstatusNotice, ErrorsStatus, closeKeyDownErrorstatusNotice };

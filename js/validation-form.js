@@ -1,5 +1,5 @@
 import {dataCommentField, dataHashtagField, submitButtonText} from './data-validation-form.js';
-import { messagesHandler } from './open-upload-photos-form-alert.js';
+import { showstatusNotice } from './open-upload-photos-form-alert.js';
 import { sendData } from './api.js';
 
 const formUploadElement = document.querySelector('.img-upload__form');
@@ -88,11 +88,11 @@ const setUploadFormSubmit = (closeForm) => {
       blockSubmitButton();
       sendData(
         () => {
-          messagesHandler('success');
+          showstatusNotice('success');
           closeForm();
         },
         () => {
-          messagesHandler('error');
+          showstatusNotice('error');
         },
         () => {
           unBlockSubmitButton();

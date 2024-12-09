@@ -2,6 +2,7 @@ import { isEscapeKey } from './utils.js';
 import { selectionEffect } from './foto-effect.js';
 import { resetScaleValue } from './change-foto-scale.js';
 import { pristine } from './validation-form.js';
+import { ErrorsStatus, closeKeyDownErrorstatusNotice } from './open-upload-photos-form-alert.js';
 
 const formUploadElement = document.querySelector('.img-upload__form');
 const imgUploadInputElement = formUploadElement.querySelector('.img-upload__input');
@@ -13,6 +14,7 @@ const uploudImageFormElement = document.querySelector('#upload-select-image');
 const imgUploadPreviewElement = formUploadElement.querySelector('.img-upload__preview img');
 const hashtagsInputElement = formUploadElement.querySelector('.text__hashtags');
 const commentFieldElement = formUploadElement.querySelector('.text__description');
+let popUpsStack = [];
 
 const removeAlertPrestine = () => {
   const pristineErrorElement = document.querySelectorAll('.pristine-error');
@@ -57,6 +59,7 @@ function clickCloseFormModal() {
   document.removeEventListener('keydown', onCloseEscKeydown);
   closeFormElement.removeEventListener('click', clickCloseFormModal);
   effectsListElement.removeEventListener('change', selectionEffect);
+  document.removeEventListener('keydown', onDocumentEscKeydown);
   resetErrorsConfig();
 }
 
@@ -84,12 +87,31 @@ const addHandlerBlurComments = () => {
   commentFieldElement.addEventListener('blur', onAddEventEscClose);
 };
 
-const openFormModal = () => {
+function onDocumentEscKeydown (evt) {
+  const errorStatusElement = document.querySelector(`.${ErrorsStatus.ERROR_STATUS}`);
+  if (errorStatusElement) {
+    popUpsStack.push(errorStatusElement);
+  }
+  if (isEscapeKey(evt)) {
+    if (popUpsStack.length > 1) {
+      popUpsStack.pop();
+      return closeKeyDownErrorstatusNotice(errorStatusElement);
+    } if (popUpsStack.length === 1) {
+      evt.preventDefault();
+      popUpsStack = [];
+      return clickCloseFormModal();
+    }
+  }
+}
+
+const openFormModal = (element) => {
   clickOpenFormModal();
   removeHashtagEscKeydown();
   removeCommentsEscKeydown();
   addHandlerBlurHashtag();
   addHandlerBlurComments();
+  document.addEventListener('keydown', onDocumentEscKeydown);
+  popUpsStack.push(element);
 };
 
 export { openFormModal, clickCloseFormModal };
