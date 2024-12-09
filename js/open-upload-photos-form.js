@@ -1,6 +1,7 @@
 import { isEscapeKey } from './utils.js';
 import { selectionEffect } from './foto-effect.js';
 import { resetScaleValue } from './change-foto-scale.js';
+import { pristine } from './validation-form.js';
 
 const formUploadElement = document.querySelector('.img-upload__form');
 const imgUploadInputElement = formUploadElement.querySelector('.img-upload__input');
@@ -15,19 +16,21 @@ const imgUploadPreviewElement = formUploadElement.querySelector('.img-upload__pr
 const hashtagsInputElement = formUploadElement.querySelector('.text__hashtags');
 const commentFieldElement = formUploadElement.querySelector('.text__description');
 
-const onDeleteNotification = () => {
+const removeAlertPrestine = () => {
   const pristineErrorElement = document.querySelectorAll('.pristine-error');
   pristineErrorElement.forEach((item) => {
     item.remove();
+    pristine.reset();
   });
 };
 
-// const onShow = () => {
-//   const newDiv = document.createElement('div');
-//   newDiv.classList.add('pristine-error', 'img-upload__field-wrapper--error');
-//   newDiv.textContent = 'Хэштег доолжен начинаться с #';
-//   document.getElementsByClassName('img-upload__field-wrapper')[0].append(newDiv);
-// };
+const resetErrorsConfig = () => {
+  removeAlertPrestine();
+  uploudImageFormElement.reset();
+  imgUploadPreviewElement.removeAttribute('style');
+  resetScaleValue();
+  removeAlertPrestine();
+};
 
 const clickOpenFormModal = () => {
   imgUploadInputElement.addEventListener('change', (evt) => {
@@ -55,12 +58,10 @@ function clickCloseFormModal() {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onCloseEscKeydown);
   closeFormElement.removeEventListener('click', clickCloseFormModal);
-  uploudImageFormElement.reset();
   effectsListElement.removeEventListener('change', selectionEffect);
-  imgUploadPreviewElement.removeAttribute('style');
-  resetScaleValue();
-  onDeleteNotification();
+  resetErrorsConfig();
 }
+
 
 function onCloseEscKeydown (evt) {
   if (isEscapeKey(evt)) {
