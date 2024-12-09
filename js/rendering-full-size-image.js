@@ -1,7 +1,6 @@
 import { isEscapeKey } from './utils.js';
 
 const COMMENTS_STEP = 5;
-
 const bigPictureElement = document.querySelector('.big-picture');
 const bigPictureCloseElement = bigPictureElement.querySelector('.big-picture__cancel');
 const bigPictureImgElement = bigPictureElement.querySelector('.big-picture__img img');
@@ -12,9 +11,7 @@ const commentCountElement = bigPictureElement.querySelector('.social__comment-sh
 const commentTotalCountElement = bigPictureElement.querySelector('.social__comment-total-count');
 const descriptionElement = bigPictureElement.querySelector('.social__caption');
 const loadCommentsElement = bigPictureElement.querySelector('.comments-loader');
-
 const commentFragment = document.createDocumentFragment();
-
 let commentsCount = COMMENTS_STEP;
 let currentComments = [];
 

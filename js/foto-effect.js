@@ -5,7 +5,6 @@ const levelEffectElement = imgUploadElement.querySelector('.effect-level__value'
 const sliderElement = imgUploadElement.querySelector('.effect-level__slider');
 const imgUploadPreviewElement = imgUploadElement.querySelector('.img-upload__preview img');
 const sliderContainerElement = imgUploadElement.querySelector('.img-upload__effect-level');
-
 const effectsElement = imgUploadElement.querySelector('.effects');
 const effectNoneId = effectsElement.querySelector('#effect-none').id;
 const effectChromeId = effectsElement.querySelector('#effect-chrome').id;

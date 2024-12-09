@@ -9,10 +9,8 @@ const showFormElement = formUploadElement.querySelector('.img-upload__overlay');
 const closeFormElement = formUploadElement.querySelector('.img-upload__cancel');
 const sliderContainerElement = formUploadElement.querySelector('.img-upload__effect-level');
 const effectsListElement = formUploadElement.querySelector('.effects__list');
-
 const uploudImageFormElement = document.querySelector('#upload-select-image');
 const imgUploadPreviewElement = formUploadElement.querySelector('.img-upload__preview img');
-
 const hashtagsInputElement = formUploadElement.querySelector('.text__hashtags');
 const commentFieldElement = formUploadElement.querySelector('.text__description');
 
