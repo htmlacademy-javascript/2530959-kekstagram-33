@@ -1,7 +1,17 @@
 import { showBigPicture } from './rendering-full-size-image.js';
+import { getFilterPhotos } from './filter-photo.js';
 
 const containerPicturesElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const imgFilterElement = document.querySelector('.img-filters');
+const imgFiltersFormElement = document.querySelector('.img-filters__form');
+
+const eventOnFilterElement = (dataForPosts) => {
+  imgFilterElement.classList.remove('img-filters--inactive');
+  imgFiltersFormElement.addEventListener('click', (evt) => {
+    getFilterPhotos(evt, dataForPosts);
+  });
+};
 
 const renderPhotoList = (similarPhotos) => {
   const similarListFragment = document.createDocumentFragment();
@@ -27,5 +37,5 @@ const renderPhotoList = (similarPhotos) => {
   containerPicturesElement.appendChild(similarListFragment);
 };
 
-export { renderPhotoList };
+export { renderPhotoList, eventOnFilterElement };
 

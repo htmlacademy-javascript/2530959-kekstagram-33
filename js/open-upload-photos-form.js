@@ -2,22 +2,22 @@ import { isEscapeKey } from './utils.js';
 import { selectionEffect } from './foto-effect.js';
 import { resetScaleValue } from './change-foto-scale.js';
 
-const formUploadDOMElement = document.querySelector('.img-upload__form');
-const imgUploadInputDOMElement = formUploadDOMElement.querySelector('.img-upload__input');
-const showFormDOMElement = formUploadDOMElement.querySelector('.img-upload__overlay');
-const closeFormDOMElement = formUploadDOMElement.querySelector('.img-upload__cancel');
-const sliderContainerDOMElement = formUploadDOMElement.querySelector('.img-upload__effect-level');
-const effectsListDOMElement = formUploadDOMElement.querySelector('.effects__list');
+const formUploadElement = document.querySelector('.img-upload__form');
+const imgUploadInputElement = formUploadElement.querySelector('.img-upload__input');
+const showFormElement = formUploadElement.querySelector('.img-upload__overlay');
+const closeFormElement = formUploadElement.querySelector('.img-upload__cancel');
+const sliderContainerElement = formUploadElement.querySelector('.img-upload__effect-level');
+const effectsListElement = formUploadElement.querySelector('.effects__list');
 
-const uploudImageFormDOMElement = document.querySelector('#upload-select-image');
-const imgUploadPreviewDOMElement = formUploadDOMElement.querySelector('.img-upload__preview img');
+const uploudImageFormElement = document.querySelector('#upload-select-image');
+const imgUploadPreviewElement = formUploadElement.querySelector('.img-upload__preview img');
 
-const hashtagsInputDOMElement = formUploadDOMElement.querySelector('.text__hashtags');
-const commentFieldDOMElement = formUploadDOMElement.querySelector('.text__description');
+const hashtagsInputElement = formUploadElement.querySelector('.text__hashtags');
+const commentFieldElement = formUploadElement.querySelector('.text__description');
 
 const onDeleteNotification = () => {
-  const pristineErrorDOMElement = document.querySelectorAll('.pristine-error');
-  pristineErrorDOMElement.forEach((item) => {
+  const pristineErrorElement = document.querySelectorAll('.pristine-error');
+  pristineErrorElement.forEach((item) => {
     item.remove();
   });
 };
@@ -30,14 +30,14 @@ const onDeleteNotification = () => {
 // };
 
 const clickOpenFormModal = () => {
-  imgUploadInputDOMElement.addEventListener('change', (evt) => {
+  imgUploadInputElement.addEventListener('change', (evt) => {
     evt.preventDefault();
-    showFormDOMElement.classList.remove('hidden');
+    showFormElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onCloseEscKeydown);
-    closeFormDOMElement.addEventListener('click', clickCloseFormModal);
-    sliderContainerDOMElement.classList.add('hidden');
-    effectsListDOMElement.addEventListener('change', selectionEffect);
+    closeFormElement.addEventListener('click', clickCloseFormModal);
+    sliderContainerElement.classList.add('hidden');
+    effectsListElement.addEventListener('change', selectionEffect);
   });
 };
 
@@ -51,13 +51,13 @@ const onRemoveEnentEscClose = () => {
 };
 
 function clickCloseFormModal() {
-  showFormDOMElement.classList.add('hidden');
+  showFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onCloseEscKeydown);
-  closeFormDOMElement.removeEventListener('click', clickCloseFormModal);
-  uploudImageFormDOMElement.reset();
-  effectsListDOMElement.removeEventListener('change', selectionEffect);
-  imgUploadPreviewDOMElement.removeAttribute('style');
+  closeFormElement.removeEventListener('click', clickCloseFormModal);
+  uploudImageFormElement.reset();
+  effectsListElement.removeEventListener('change', selectionEffect);
+  imgUploadPreviewElement.removeAttribute('style');
   resetScaleValue();
   onDeleteNotification();
 }
@@ -70,19 +70,19 @@ function onCloseEscKeydown (evt) {
 }
 
 const removeHashtagEscKeydown = () => {
-  hashtagsInputDOMElement.addEventListener('focus', onRemoveEnentEscClose);
+  hashtagsInputElement.addEventListener('focus', onRemoveEnentEscClose);
 };
 
 const removeCommentsEscKeydown = () => {
-  commentFieldDOMElement.addEventListener('focus', onRemoveEnentEscClose);
+  commentFieldElement.addEventListener('focus', onRemoveEnentEscClose);
 };
 
 const addHandlerBlurHashtag = () => {
-  hashtagsInputDOMElement.addEventListener('blur', onAddEventEscClose);
+  hashtagsInputElement.addEventListener('blur', onAddEventEscClose);
 };
 
 const addHandlerBlurComments = () => {
-  commentFieldDOMElement.addEventListener('blur', onAddEventEscClose);
+  commentFieldElement.addEventListener('blur', onAddEventEscClose);
 };
 
 const openFormModal = () => {

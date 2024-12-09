@@ -1,20 +1,20 @@
 import { noUiSliderValue, renderEffect } from './data-foto-effect.js';
 
-const imgUploadDomElement = document.querySelector('.img-upload__overlay');
-const levelEffectDomElement = imgUploadDomElement.querySelector('.effect-level__value');
-const sliderDomElement = imgUploadDomElement.querySelector('.effect-level__slider');
-const imgUploadPreviewDOMElement = imgUploadDomElement.querySelector('.img-upload__preview img');
-const sliderContainer = imgUploadDomElement.querySelector('.img-upload__effect-level');
+const imgUploadElement = document.querySelector('.img-upload__overlay');
+const levelEffectElement = imgUploadElement.querySelector('.effect-level__value');
+const sliderElement = imgUploadElement.querySelector('.effect-level__slider');
+const imgUploadPreviewElement = imgUploadElement.querySelector('.img-upload__preview img');
+const sliderContainerElement = imgUploadElement.querySelector('.img-upload__effect-level');
 
-const effectsDOMElement = imgUploadDomElement.querySelector('.effects');
-const effectNoneId = effectsDOMElement.querySelector('#effect-none').id;
-const effectChromeId = effectsDOMElement.querySelector('#effect-chrome').id;
-const effectSepiaId = effectsDOMElement.querySelector('#effect-sepia').id;
-const effectMarvinId = effectsDOMElement.querySelector('#effect-marvin').id;
-const effectPhobosId = effectsDOMElement.querySelector('#effect-phobos').id;
-const effectHeatId = effectsDOMElement.querySelector('#effect-heat').id;
+const effectsElement = imgUploadElement.querySelector('.effects');
+const effectNoneId = effectsElement.querySelector('#effect-none').id;
+const effectChromeId = effectsElement.querySelector('#effect-chrome').id;
+const effectSepiaId = effectsElement.querySelector('#effect-sepia').id;
+const effectMarvinId = effectsElement.querySelector('#effect-marvin').id;
+const effectPhobosId = effectsElement.querySelector('#effect-phobos').id;
+const effectHeatId = effectsElement.querySelector('#effect-heat').id;
 
-noUiSlider.create(sliderDomElement, {
+noUiSlider.create(sliderElement, {
   range: {
     min: noUiSliderValue.MIN_VALUE,
     max: noUiSliderValue.MAX_VALUE,
@@ -37,12 +37,12 @@ noUiSlider.create(sliderDomElement, {
 
 const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
   if (isDefault) {
-    sliderContainer.classList.add('hidden');
-    imgUploadPreviewDOMElement.style.filter = '';
-    levelEffectDomElement.setAttribute('value', '');
+    sliderContainerElement.classList.add('hidden');
+    imgUploadPreviewElement.style.filter = '';
+    levelEffectElement.setAttribute('value', '');
   } else {
-    sliderContainer.classList.remove('hidden');
-    sliderDomElement.noUiSlider.updateOptions({
+    sliderContainerElement.classList.remove('hidden');
+    sliderElement.noUiSlider.updateOptions({
       range: {
         min: min,
         max: max,
@@ -50,10 +50,10 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
       start: noUiSliderValue.START_VALUE,
       step: step,
     });
-    sliderDomElement.noUiSlider.on('update', () => {
-      const currentValue = sliderDomElement.noUiSlider.get();
-      imgUploadPreviewDOMElement.style.filter = filterStyle(currentValue);
-      levelEffectDomElement.setAttribute('value', `${currentValue}`);
+    sliderElement.noUiSlider.on('update', () => {
+      const currentValue = sliderElement.noUiSlider.get();
+      imgUploadPreviewElement.style.filter = filterStyle(currentValue);
+      levelEffectElement.setAttribute('value', `${currentValue}`);
     });
   }
 };
