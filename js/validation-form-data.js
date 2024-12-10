@@ -12,7 +12,7 @@ const DataHashtagField = Object.freeze({
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
-  SENDING: 'Опубликовываю...'
+  SENDING: 'Опубликовываю...',
 };
 
 export { DataCommentField, DataHashtagField, SubmitButtonText };
