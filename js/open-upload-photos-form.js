@@ -77,9 +77,9 @@ function onCloseEscKeydown (evt) {
       evt.preventDefault();
       popUpsStack = [];
       return onclickCloseFormModal();
-    };
+    }
   }
-};
+}
 
 const removeHashtagEscKeydown = () => {
   hashtagsInputElement.addEventListener('focus', onRemoveEnentEscClose);
