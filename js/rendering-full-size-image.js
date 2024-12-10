@@ -17,14 +17,11 @@ let currentComments = [];
 
 const renderCommentsInPicture = (comment) => {
   const newComment = socialCommentElement.cloneNode(true);
-
   const avatar = newComment.querySelector('.social__picture');
-
   avatar.src = comment.avatar;
   avatar.alt = comment.name;
   const commentTextElement = newComment.querySelector('.social__text');
   commentTextElement.textContent = comment.message;
-
   return newComment;
 };
 
@@ -34,21 +31,16 @@ const deleteComments = () => {
 
 const renderCommentsLoad = () => {
   deleteComments();
-
   commentsCount = (commentsCount > currentComments.length) ? currentComments.length : commentsCount;
-
   for (let i = 0; i < commentsCount; i++) {
     commentFragment.appendChild(renderCommentsInPicture(currentComments[i]));
   }
-
   if (currentComments.length <= COMMENTS_STEP || commentsCount >= currentComments.length) {
     loadCommentsElement.classList.add('hidden');
   } else {
     loadCommentsElement.classList.remove('hidden');
   }
-
   commentCountElement.textContent = commentsCount;
-
   listCommentsElement.appendChild(commentFragment);
 };
 

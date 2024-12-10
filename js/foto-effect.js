@@ -1,4 +1,4 @@
-import { noUiSliderValue, renderEffect } from './data-foto-effect.js';
+import { noUiSliderValue, RenderEffect } from './foto-effect-data.js';
 
 const imgUploadElement = document.querySelector('.img-upload__overlay');
 const levelEffectElement = imgUploadElement.querySelector('.effect-level__value');
@@ -60,30 +60,30 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
 const selectionEffect = (evt) => {
   switch (evt.target.id) {
     case effectHeatId: {
-      changeEffectOnPhoto(renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MAX_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `brightness(${currentValue})`, false);
+      changeEffectOnPhoto(RenderEffect.MAX_ONE_VALUE_EFFECT, RenderEffect.MAX_VALUE_EFFECT, RenderEffect.MIN_STEP, (currentValue) => `brightness(${currentValue})`, false);
       break;
     }
     case effectPhobosId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `blur(${currentValue}px)`, false);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.MAX_VALUE_EFFECT, RenderEffect.MIN_STEP, (currentValue) => `blur(${currentValue}px)`, false);
       break;
     }
     case effectMarvinId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_HUNDRED_VALUE_EFFECT, renderEffect.MAX_STEP, (currentValue) => `invert(${currentValue}%)`, false);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.MAX_HUNDRED_VALUE_EFFECT, RenderEffect.MAX_STEP, (currentValue) => `invert(${currentValue}%)`, false);
       break;
     }
     case effectSepiaId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `sepia(${currentValue})`, false);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.MAX_ONE_VALUE_EFFECT, RenderEffect.MIN_STEP, (currentValue) => `sepia(${currentValue})`, false);
       break;
     }
     case effectChromeId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `grayscale(${currentValue})`, false);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.MAX_ONE_VALUE_EFFECT, RenderEffect.MIN_STEP, (currentValue) => `grayscale(${currentValue})`, false);
       break;
     }
     case effectNoneId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.ZERO_VALUE, renderEffect.ZERO_VALUE, '', true);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.ZERO_VALUE, RenderEffect.ZERO_VALUE, '', true);
       break;
     }
-    default: changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.ZERO_VALUE, renderEffect.ZERO_VALUE, '', true);
+    default: changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.ZERO_VALUE, RenderEffect.ZERO_VALUE, '', true);
   }
 };
 

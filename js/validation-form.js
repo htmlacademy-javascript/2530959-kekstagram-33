@@ -1,11 +1,12 @@
-import {dataCommentField, dataHashtagField, submitButtonText} from './data-validation-form.js';
+import {DataCommentField, DataHashtagField, SubmitButtonText} from './validation-form-data.js';
 import { showstatusNotice } from './open-upload-photos-form-alert.js';
-import { sendData } from './api.js';
+import { sendData } from './api-modul.js';
 
 const formUploadElement = document.querySelector('.img-upload__form');
 const hashtagsInputElement = formUploadElement.querySelector('.text__hashtags');
 const commentFieldElement = formUploadElement.querySelector('.text__description');
 const submitButtonElement = formUploadElement.querySelector('#upload-submit');
+let hashtagErrorMessage = [];
 
 const pristine = new Pristine(formUploadElement, {
   classTo: 'img-upload__field-wrapper',
@@ -20,19 +21,19 @@ const uniqValueHashtag = (array) => array.length === new Set(array).size;
 
 const checkOnValidHashtag = (hashtags) => {
   if (!hashtags.every(isValidHashtag)) {
-    return dataHashtagField.HASHTAG_NOT_VALID;
+    return DataHashtagField.HASHTAG_NOT_VALID;
   }
 };
 
 const checkOnNumbersHashtags = (hashtags) => {
-  if (hashtags.length > dataHashtagField.MAX_HASHTAG_NUMBERS) {
-    return dataHashtagField.MAX_HASHTAG_NUMBERS_EXCEEDED;
+  if (hashtags.length > DataHashtagField.MAX_HASHTAG_NUMBERS) {
+    return DataHashtagField.MAX_HASHTAG_NUMBERS_EXCEEDED;
   }
 };
 
 const checkOnDuplicateHashtag = (hashtags) => {
   if (!uniqValueHashtag(hashtags)) {
-    return dataHashtagField.DUPLICATE_HASHTAGS;
+    return DataHashtagField.DUPLICATE_HASHTAGS;
   }
 };
 
@@ -42,42 +43,36 @@ const rulesValidationHashtags = [
   checkOnDuplicateHashtag
 ];
 
-let hashtagErrorMessage = [];
-
 const validateHashtagField = (value) => {
   const hashtags = value.split(/\s/).map((hashtag) => hashtag.toLowerCase()).filter(Boolean);
   hashtagErrorMessage = [];
-
   rulesValidationHashtags.reduce((errors, validator) => {
     const error = validator(hashtags);
-
     if(error) {
       errors.push(error);
     }
-
     return errors;
   }, hashtagErrorMessage);
-
   return !hashtagErrorMessage.length;
 };
 
-const validateCommentField = (value) => value.length <= dataCommentField.MAX_LENGTH;
+const validateCommentField = (value) => value.length <= DataCommentField.MAX_LENGTH;
 
 const getHashtagErrorMessage = () => hashtagErrorMessage[0] ?? '';
 
-const getCommentErrorMessage = () => dataCommentField.MESSAGE_ERROR;
+const getCommentErrorMessage = () => DataCommentField.MESSAGE_ERROR;
 
 pristine.addValidator(hashtagsInputElement, validateHashtagField, getHashtagErrorMessage);
 pristine.addValidator(commentFieldElement, validateCommentField, getCommentErrorMessage);
 
 const blockSubmitButton = () => {
   submitButtonElement.disabled = true;
-  submitButtonElement.textContent = `${submitButtonText.SENDING}`;
+  submitButtonElement.textContent = `${SubmitButtonText.SENDING}`;
 };
 
 const unBlockSubmitButton = () => {
   submitButtonElement.disabled = false;
-  submitButtonElement.textContent = `${submitButtonText.IDLE}`;
+  submitButtonElement.textContent = `${SubmitButtonText.IDLE}`;
 };
 
 const setUploadFormSubmit = (closeForm) => {
@@ -102,4 +97,5 @@ const setUploadFormSubmit = (closeForm) => {
     }
   });
 };
+
 export { pristine, setUploadFormSubmit, checkOnValidHashtag };

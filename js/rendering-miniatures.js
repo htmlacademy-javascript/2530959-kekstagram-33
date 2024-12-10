@@ -18,20 +18,16 @@ const renderPhotoList = (similarPhotos) => {
 
   similarPhotos.forEach((photo) => {
     const photoElement = pictureTemplate.cloneNode(true);
-
     const onPictureElementClick = (evt) => {
       evt.preventDefault();
       showBigPicture(photo);
     };
-
     photoElement.id = photo.id;
     photoElement.querySelector('.picture__img').src = photo.url;
     photoElement.querySelector('.picture__img').alt = photo.description;
     photoElement.querySelector('.picture__likes').textContent = photo.likes;
     photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
-
     photoElement.addEventListener('click', onPictureElementClick);
-
     similarListFragment.appendChild(photoElement);
   });
   containerPicturesElement.appendChild(similarListFragment);

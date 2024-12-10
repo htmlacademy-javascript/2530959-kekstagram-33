@@ -32,15 +32,16 @@ const resetErrorsConfig = () => {
   removeAlertPrestine();
 };
 
-const clickOpenFormModal = () => {
+const clickOpenFormModal = (element) => {
   imgUploadInputElement.addEventListener('change', (evt) => {
     evt.preventDefault();
     showFormElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
-    document.addEventListener('keydown', onCloseEscKeydown);
-    closeFormElement.addEventListener('click', clickCloseFormModal);
+    closeFormElement.addEventListener('click', onclickCloseFormModal);
     sliderContainerElement.classList.add('hidden');
     effectsListElement.addEventListener('change', selectionEffect);
+    document.addEventListener('keydown', onCloseEscKeydown);
+    popUpsStack.push(element);
   });
 };
 
@@ -53,23 +54,32 @@ const onRemoveEnentEscClose = () => {
   document.removeEventListener('keydown', onCloseEscKeydown);
 };
 
-function clickCloseFormModal() {
+function onclickCloseFormModal() {
   showFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onCloseEscKeydown);
-  closeFormElement.removeEventListener('click', clickCloseFormModal);
+  closeFormElement.removeEventListener('click', onclickCloseFormModal);
   effectsListElement.removeEventListener('change', selectionEffect);
-  document.removeEventListener('keydown', onDocumentEscKeydown);
+  document.removeEventListener('keydown', onCloseEscKeydown);
   resetErrorsConfig();
 }
 
-
 function onCloseEscKeydown (evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    clickCloseFormModal();
+  const errorStatusElement = document.querySelector(`.${ErrorsStatus.ERROR_STATUS}`);
+  if (errorStatusElement) {
+    popUpsStack.push(errorStatusElement);
   }
-}
+  if (isEscapeKey(evt)) {
+    if (popUpsStack.length > 1) {
+      popUpsStack.pop();
+      return closeKeyDownErrorstatusNotice(errorStatusElement);
+    } if (popUpsStack.length === 1) {
+      evt.preventDefault();
+      popUpsStack = [];
+      return onclickCloseFormModal();
+    };
+  }
+};
 
 const removeHashtagEscKeydown = () => {
   hashtagsInputElement.addEventListener('focus', onRemoveEnentEscClose);
@@ -87,31 +97,12 @@ const addHandlerBlurComments = () => {
   commentFieldElement.addEventListener('blur', onAddEventEscClose);
 };
 
-function onDocumentEscKeydown (evt) {
-  const errorStatusElement = document.querySelector(`.${ErrorsStatus.ERROR_STATUS}`);
-  if (errorStatusElement) {
-    popUpsStack.push(errorStatusElement);
-  }
-  if (isEscapeKey(evt)) {
-    if (popUpsStack.length > 1) {
-      popUpsStack.pop();
-      return closeKeyDownErrorstatusNotice(errorStatusElement);
-    } if (popUpsStack.length === 1) {
-      evt.preventDefault();
-      popUpsStack = [];
-      return clickCloseFormModal();
-    }
-  }
-}
-
-const openFormModal = (element) => {
+const openFormModal = () => {
   clickOpenFormModal();
   removeHashtagEscKeydown();
   removeCommentsEscKeydown();
   addHandlerBlurHashtag();
   addHandlerBlurComments();
-  document.addEventListener('keydown', onDocumentEscKeydown);
-  popUpsStack.push(element);
 };
 
-export { openFormModal, clickCloseFormModal };
+export { openFormModal, onclickCloseFormModal };

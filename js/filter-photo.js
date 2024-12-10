@@ -1,11 +1,11 @@
 import { renderPhotoList } from './rendering-miniatures.js';
 import { debounce, DEBOUNCE_TIME } from './utils.js';
 
+const PICTURE_COUNT = 10;
 const filterElement = document.querySelector('.img-filters');
 const defaultFilterElement = filterElement.querySelector('#filter-default');
 const randomFilterElement = filterElement.querySelector('#filter-random');
 const discussedFilterElement = filterElement.querySelector('#filter-discussed');
-const PICTURE_COUNT = 10;
 
 const changeFilters = (currentFilter) => {
   const activeButtonElement = filterElement.querySelector('.img-filters__button--active');
