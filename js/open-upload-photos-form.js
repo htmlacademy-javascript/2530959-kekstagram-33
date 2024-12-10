@@ -1,5 +1,5 @@
 import { isEscapeKey } from './utils.js';
-import { selectionEffect } from './foto-effect.js';
+import { onChangeSelectionEffect } from './foto-effect.js';
 import { resetScaleValue } from './change-foto-scale.js';
 import { pristine } from './validation-form.js';
 import { ErrorsStatus, closeKeyDownErrorstatusNotice } from './open-upload-photos-form-alert.js';
@@ -39,7 +39,7 @@ const clickOpenFormModal = (element) => {
     document.body.classList.add('modal-open');
     closeFormElement.addEventListener('click', onclickCloseFormModal);
     sliderContainerElement.classList.add('hidden');
-    effectsListElement.addEventListener('change', selectionEffect);
+    effectsListElement.addEventListener('change', onChangeSelectionEffect);
     document.addEventListener('keydown', onCloseEscKeydown);
     popUpsStack.push(element);
   });
@@ -59,7 +59,7 @@ function onclickCloseFormModal() {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onCloseEscKeydown);
   closeFormElement.removeEventListener('click', onclickCloseFormModal);
-  effectsListElement.removeEventListener('change', selectionEffect);
+  effectsListElement.removeEventListener('change', onChangeSelectionEffect);
   document.removeEventListener('keydown', onCloseEscKeydown);
   resetErrorsConfig();
 }

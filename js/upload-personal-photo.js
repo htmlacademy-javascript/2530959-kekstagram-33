@@ -3,7 +3,7 @@ const fileChooserElement = document.querySelector('#upload-file');
 const previewElement = document.querySelector('.img-upload__preview img');
 const effectPreviewElement = document.querySelectorAll('.effects__preview');
 
-const fileUploadingForm = () => {
+const uploadFilesForm = () => {
   fileChooserElement.addEventListener('change', () => {
     const file = fileChooserElement.files[0];
     const fileName = file.name.toLowerCase();
@@ -18,4 +18,4 @@ const fileUploadingForm = () => {
   });
 };
 
-export { fileUploadingForm };
+export { uploadFilesForm };
