@@ -6,7 +6,7 @@ import { changeScalePhoto } from './change-foto-scale.js';
 import { showstatusNotice, ErrorsStatus } from './open-upload-photos-form-alert.js';
 import { getData } from './api-modul.js';
 import { renderPhotoList, eventOnFilterElement } from './rendering-miniatures.js';
-import { fileUploadingForm } from './upload-personal-photo.js';
+import { uploadFilesForm } from './upload-personal-photo.js';
 
 openFormModal(document.querySelector('.img-upload__input'));
 changeScalePhoto();
@@ -18,5 +18,5 @@ await getData(
   },
   () => showstatusNotice(`${ErrorsStatus.DATA_ERROR_STATUS}`),
 );
-fileUploadingForm();
+uploadFilesForm();
 setUploadFormSubmit(onclickCloseFormModal);

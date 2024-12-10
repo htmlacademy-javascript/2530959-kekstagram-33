@@ -57,7 +57,7 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
   }
 };
 
-const selectionEffect = (evt) => {
+const onChangeSelectionEffect = (evt) => {
   switch (evt.target.id) {
     case effectHeatId: {
       changeEffectOnPhoto(RenderEffect.MAX_ONE_VALUE_EFFECT, RenderEffect.MAX_VALUE_EFFECT, RenderEffect.MIN_STEP, (currentValue) => `brightness(${currentValue})`, false);
@@ -87,4 +87,4 @@ const selectionEffect = (evt) => {
   }
 };
 
-export { selectionEffect };
+export { onChangeSelectionEffect };

@@ -6,7 +6,7 @@ const formUploadElement = document.querySelector('.img-upload__form');
 const hashtagsInputElement = formUploadElement.querySelector('.text__hashtags');
 const commentFieldElement = formUploadElement.querySelector('.text__description');
 const submitButtonElement = formUploadElement.querySelector('#upload-submit');
-let hashtagErrorMessage = [];
+let hashtagsErrorMessage = [];
 
 const pristine = new Pristine(formUploadElement, {
   classTo: 'img-upload__field-wrapper',
@@ -37,7 +37,7 @@ const checkOnDuplicateHashtag = (hashtags) => {
   }
 };
 
-const rulesValidationHashtags = [
+const validateRulesHashtags = [
   checkOnValidHashtag,
   checkOnNumbersHashtags,
   checkOnDuplicateHashtag
@@ -45,24 +45,24 @@ const rulesValidationHashtags = [
 
 const validateHashtagField = (value) => {
   const hashtags = value.split(/\s/).map((hashtag) => hashtag.toLowerCase()).filter(Boolean);
-  hashtagErrorMessage = [];
-  rulesValidationHashtags.reduce((errors, validator) => {
+  hashtagsErrorMessage = [];
+  validateRulesHashtags.reduce((errors, validator) => {
     const error = validator(hashtags);
     if(error) {
       errors.push(error);
     }
     return errors;
-  }, hashtagErrorMessage);
-  return !hashtagErrorMessage.length;
+  }, hashtagsErrorMessage);
+  return !hashtagsErrorMessage.length;
 };
 
 const validateCommentField = (value) => value.length <= DataCommentField.MAX_LENGTH;
 
-const getHashtagErrorMessage = () => hashtagErrorMessage[0] ?? '';
+const gethashtagsErrorMessage = () => hashtagsErrorMessage[0] ?? '';
 
 const getCommentErrorMessage = () => DataCommentField.MESSAGE_ERROR;
 
-pristine.addValidator(hashtagsInputElement, validateHashtagField, getHashtagErrorMessage);
+pristine.addValidator(hashtagsInputElement, validateHashtagField, gethashtagsErrorMessage);
 pristine.addValidator(commentFieldElement, validateCommentField, getCommentErrorMessage);
 
 const blockSubmitButton = () => {
@@ -70,7 +70,7 @@ const blockSubmitButton = () => {
   submitButtonElement.textContent = `${SubmitButtonText.SENDING}`;
 };
 
-const unBlockSubmitButton = () => {
+const unblockSubmitButton = () => {
   submitButtonElement.disabled = false;
   submitButtonElement.textContent = `${SubmitButtonText.IDLE}`;
 };
@@ -90,7 +90,7 @@ const setUploadFormSubmit = (closeForm) => {
           showstatusNotice('error');
         },
         () => {
-          unBlockSubmitButton();
+          unblockSubmitButton();
         },
         new FormData(evt.target),
       );
