@@ -5,7 +5,7 @@ const noUiSliderValue = {
   STEP_VALUE: 1,
 };
 
-const renderEffect = {
+const RenderEffect = {
   MIN_VALUE_EFFECT: 0,
   MAX_VALUE_EFFECT: 3,
   MAX_ONE_VALUE_EFFECT: 1,
@@ -15,4 +15,4 @@ const renderEffect = {
   ZERO_VALUE: 0,
 };
 
-export { noUiSliderValue, renderEffect };
+export { noUiSliderValue, RenderEffect };

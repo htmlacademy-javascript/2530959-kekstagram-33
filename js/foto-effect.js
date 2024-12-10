@@ -1,20 +1,19 @@
-import { noUiSliderValue, renderEffect } from './data-foto-effect.js';
+import { noUiSliderValue, RenderEffect } from './foto-effect-data.js';
 
-const imgUploadDomElement = document.querySelector('.img-upload__overlay');
-const levelEffectDomElement = imgUploadDomElement.querySelector('.effect-level__value');
-const sliderDomElement = imgUploadDomElement.querySelector('.effect-level__slider');
-const imgUploadPreviewDOMElement = imgUploadDomElement.querySelector('.img-upload__preview img');
-const sliderContainer = imgUploadDomElement.querySelector('.img-upload__effect-level');
+const imgUploadElement = document.querySelector('.img-upload__overlay');
+const levelEffectElement = imgUploadElement.querySelector('.effect-level__value');
+const sliderElement = imgUploadElement.querySelector('.effect-level__slider');
+const imgUploadPreviewElement = imgUploadElement.querySelector('.img-upload__preview img');
+const sliderContainerElement = imgUploadElement.querySelector('.img-upload__effect-level');
+const effectsElement = imgUploadElement.querySelector('.effects');
+const effectNoneId = effectsElement.querySelector('#effect-none').id;
+const effectChromeId = effectsElement.querySelector('#effect-chrome').id;
+const effectSepiaId = effectsElement.querySelector('#effect-sepia').id;
+const effectMarvinId = effectsElement.querySelector('#effect-marvin').id;
+const effectPhobosId = effectsElement.querySelector('#effect-phobos').id;
+const effectHeatId = effectsElement.querySelector('#effect-heat').id;
 
-const effectsDOMElement = imgUploadDomElement.querySelector('.effects');
-const effectNoneId = effectsDOMElement.querySelector('#effect-none').id;
-const effectChromeId = effectsDOMElement.querySelector('#effect-chrome').id;
-const effectSepiaId = effectsDOMElement.querySelector('#effect-sepia').id;
-const effectMarvinId = effectsDOMElement.querySelector('#effect-marvin').id;
-const effectPhobosId = effectsDOMElement.querySelector('#effect-phobos').id;
-const effectHeatId = effectsDOMElement.querySelector('#effect-heat').id;
-
-noUiSlider.create(sliderDomElement, {
+noUiSlider.create(sliderElement, {
   range: {
     min: noUiSliderValue.MIN_VALUE,
     max: noUiSliderValue.MAX_VALUE,
@@ -37,12 +36,12 @@ noUiSlider.create(sliderDomElement, {
 
 const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
   if (isDefault) {
-    sliderContainer.classList.add('hidden');
-    imgUploadPreviewDOMElement.style.filter = '';
-    levelEffectDomElement.setAttribute('value', '');
+    sliderContainerElement.classList.add('hidden');
+    imgUploadPreviewElement.style.filter = '';
+    levelEffectElement.setAttribute('value', '');
   } else {
-    sliderContainer.classList.remove('hidden');
-    sliderDomElement.noUiSlider.updateOptions({
+    sliderContainerElement.classList.remove('hidden');
+    sliderElement.noUiSlider.updateOptions({
       range: {
         min: min,
         max: max,
@@ -50,10 +49,10 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
       start: noUiSliderValue.START_VALUE,
       step: step,
     });
-    sliderDomElement.noUiSlider.on('update', () => {
-      const currentValue = sliderDomElement.noUiSlider.get();
-      imgUploadPreviewDOMElement.style.filter = filterStyle(currentValue);
-      levelEffectDomElement.setAttribute('value', `${currentValue}`);
+    sliderElement.noUiSlider.on('update', () => {
+      const currentValue = sliderElement.noUiSlider.get();
+      imgUploadPreviewElement.style.filter = filterStyle(currentValue);
+      levelEffectElement.setAttribute('value', `${currentValue}`);
     });
   }
 };
@@ -61,30 +60,30 @@ const changeEffectOnPhoto = (min, max, step, filterStyle, isDefault) => {
 const selectionEffect = (evt) => {
   switch (evt.target.id) {
     case effectHeatId: {
-      changeEffectOnPhoto(renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MAX_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `brightness(${currentValue})`, false);
+      changeEffectOnPhoto(RenderEffect.MAX_ONE_VALUE_EFFECT, RenderEffect.MAX_VALUE_EFFECT, RenderEffect.MIN_STEP, (currentValue) => `brightness(${currentValue})`, false);
       break;
     }
     case effectPhobosId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `blur(${currentValue}px)`, false);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.MAX_VALUE_EFFECT, RenderEffect.MIN_STEP, (currentValue) => `blur(${currentValue}px)`, false);
       break;
     }
     case effectMarvinId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_HUNDRED_VALUE_EFFECT, renderEffect.MAX_STEP, (currentValue) => `invert(${currentValue}%)`, false);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.MAX_HUNDRED_VALUE_EFFECT, RenderEffect.MAX_STEP, (currentValue) => `invert(${currentValue}%)`, false);
       break;
     }
     case effectSepiaId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `sepia(${currentValue})`, false);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.MAX_ONE_VALUE_EFFECT, RenderEffect.MIN_STEP, (currentValue) => `sepia(${currentValue})`, false);
       break;
     }
     case effectChromeId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.MAX_ONE_VALUE_EFFECT, renderEffect.MIN_STEP, (currentValue) => `grayscale(${currentValue})`, false);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.MAX_ONE_VALUE_EFFECT, RenderEffect.MIN_STEP, (currentValue) => `grayscale(${currentValue})`, false);
       break;
     }
     case effectNoneId: {
-      changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.ZERO_VALUE, renderEffect.ZERO_VALUE, '', true);
+      changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.ZERO_VALUE, RenderEffect.ZERO_VALUE, '', true);
       break;
     }
-    default: changeEffectOnPhoto(renderEffect.MIN_VALUE_EFFECT, renderEffect.ZERO_VALUE, renderEffect.ZERO_VALUE, '', true);
+    default: changeEffectOnPhoto(RenderEffect.MIN_VALUE_EFFECT, RenderEffect.ZERO_VALUE, RenderEffect.ZERO_VALUE, '', true);
   }
 };
 

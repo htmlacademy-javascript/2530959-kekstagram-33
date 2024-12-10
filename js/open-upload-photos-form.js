@@ -1,43 +1,47 @@
 import { isEscapeKey } from './utils.js';
 import { selectionEffect } from './foto-effect.js';
 import { resetScaleValue } from './change-foto-scale.js';
+import { pristine } from './validation-form.js';
+import { ErrorsStatus, closeKeyDownErrorstatusNotice } from './open-upload-photos-form-alert.js';
 
-const formUploadDOMElement = document.querySelector('.img-upload__form');
-const imgUploadInputDOMElement = formUploadDOMElement.querySelector('.img-upload__input');
-const showFormDOMElement = formUploadDOMElement.querySelector('.img-upload__overlay');
-const closeFormDOMElement = formUploadDOMElement.querySelector('.img-upload__cancel');
-const sliderContainerDOMElement = formUploadDOMElement.querySelector('.img-upload__effect-level');
-const effectsListDOMElement = formUploadDOMElement.querySelector('.effects__list');
+const formUploadElement = document.querySelector('.img-upload__form');
+const imgUploadInputElement = formUploadElement.querySelector('.img-upload__input');
+const showFormElement = formUploadElement.querySelector('.img-upload__overlay');
+const closeFormElement = formUploadElement.querySelector('.img-upload__cancel');
+const sliderContainerElement = formUploadElement.querySelector('.img-upload__effect-level');
+const effectsListElement = formUploadElement.querySelector('.effects__list');
+const uploudImageFormElement = document.querySelector('#upload-select-image');
+const imgUploadPreviewElement = formUploadElement.querySelector('.img-upload__preview img');
+const hashtagsInputElement = formUploadElement.querySelector('.text__hashtags');
+const commentFieldElement = formUploadElement.querySelector('.text__description');
+let popUpsStack = [];
 
-const uploudImageFormDOMElement = document.querySelector('#upload-select-image');
-const imgUploadPreviewDOMElement = formUploadDOMElement.querySelector('.img-upload__preview img');
-
-const hashtagsInputDOMElement = formUploadDOMElement.querySelector('.text__hashtags');
-const commentFieldDOMElement = formUploadDOMElement.querySelector('.text__description');
-
-const onDeleteNotification = () => {
-  const pristineErrorDOMElement = document.querySelectorAll('.pristine-error');
-  pristineErrorDOMElement.forEach((item) => {
+const removeAlertPrestine = () => {
+  const pristineErrorElement = document.querySelectorAll('.pristine-error');
+  pristineErrorElement.forEach((item) => {
     item.remove();
+    pristine.reset();
   });
 };
 
-// const onShow = () => {
-//   const newDiv = document.createElement('div');
-//   newDiv.classList.add('pristine-error', 'img-upload__field-wrapper--error');
-//   newDiv.textContent = 'Хэштег доолжен начинаться с #';
-//   document.getElementsByClassName('img-upload__field-wrapper')[0].append(newDiv);
-// };
+const resetErrorsConfig = () => {
+  removeAlertPrestine();
+  uploudImageFormElement.reset();
+  imgUploadPreviewElement.removeAttribute('style');
+  resetScaleValue();
+  removeAlertPrestine();
+};
 
-const clickOpenFormModal = () => {
-  imgUploadInputDOMElement.addEventListener('change', (evt) => {
+const clickOpenFormModal = (element) => {
+  imgUploadInputElement.addEventListener('change', (evt) => {
     evt.preventDefault();
-    showFormDOMElement.classList.remove('hidden');
+    showFormElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
+    closeFormElement.addEventListener('click', onclickCloseFormModal);
+    sliderContainerElement.classList.add('hidden');
+    effectsListElement.addEventListener('change', selectionEffect);
     document.addEventListener('keydown', onCloseEscKeydown);
-    closeFormDOMElement.addEventListener('click', clickCloseFormModal);
-    sliderContainerDOMElement.classList.add('hidden');
-    effectsListDOMElement.addEventListener('change', selectionEffect);
+    popUpsStack.push(element);
   });
 };
 
@@ -50,39 +54,47 @@ const onRemoveEnentEscClose = () => {
   document.removeEventListener('keydown', onCloseEscKeydown);
 };
 
-function clickCloseFormModal() {
-  showFormDOMElement.classList.add('hidden');
+function onclickCloseFormModal() {
+  showFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onCloseEscKeydown);
-  closeFormDOMElement.removeEventListener('click', clickCloseFormModal);
-  uploudImageFormDOMElement.reset();
-  effectsListDOMElement.removeEventListener('change', selectionEffect);
-  imgUploadPreviewDOMElement.removeAttribute('style');
-  resetScaleValue();
-  onDeleteNotification();
+  closeFormElement.removeEventListener('click', onclickCloseFormModal);
+  effectsListElement.removeEventListener('change', selectionEffect);
+  document.removeEventListener('keydown', onCloseEscKeydown);
+  resetErrorsConfig();
 }
 
 function onCloseEscKeydown (evt) {
+  const errorStatusElement = document.querySelector(`.${ErrorsStatus.ERROR_STATUS}`);
+  if (errorStatusElement) {
+    popUpsStack.push(errorStatusElement);
+  }
   if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    clickCloseFormModal();
+    if (popUpsStack.length > 1) {
+      popUpsStack.pop();
+      return closeKeyDownErrorstatusNotice(errorStatusElement);
+    } if (popUpsStack.length === 1) {
+      evt.preventDefault();
+      popUpsStack = [];
+      return onclickCloseFormModal();
+    }
   }
 }
 
 const removeHashtagEscKeydown = () => {
-  hashtagsInputDOMElement.addEventListener('focus', onRemoveEnentEscClose);
+  hashtagsInputElement.addEventListener('focus', onRemoveEnentEscClose);
 };
 
 const removeCommentsEscKeydown = () => {
-  commentFieldDOMElement.addEventListener('focus', onRemoveEnentEscClose);
+  commentFieldElement.addEventListener('focus', onRemoveEnentEscClose);
 };
 
 const addHandlerBlurHashtag = () => {
-  hashtagsInputDOMElement.addEventListener('blur', onAddEventEscClose);
+  hashtagsInputElement.addEventListener('blur', onAddEventEscClose);
 };
 
 const addHandlerBlurComments = () => {
-  commentFieldDOMElement.addEventListener('blur', onAddEventEscClose);
+  commentFieldElement.addEventListener('blur', onAddEventEscClose);
 };
 
 const openFormModal = () => {
@@ -93,4 +105,4 @@ const openFormModal = () => {
   addHandlerBlurComments();
 };
 
-export { openFormModal, clickCloseFormModal };
+export { openFormModal, onclickCloseFormModal };
