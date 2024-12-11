@@ -2,6 +2,7 @@ import {DataCommentField, DataHashtagField, SubmitButtonText} from './validation
 import { showstatusNotice } from './open-upload-photos-form-alert.js';
 import { sendData } from './api-modul.js';
 
+const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const formUploadElement = document.querySelector('.img-upload__form');
 const hashtagsInputElement = formUploadElement.querySelector('.text__hashtags');
 const commentFieldElement = formUploadElement.querySelector('.text__description');
@@ -14,10 +15,8 @@ const pristine = new Pristine(formUploadElement, {
   errorTextClass: 'img-upload__field-wrapper--error',
 }, false);
 
-const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const isValidHashtag = (hashtag) => HASHTAG_REGEX.test(hashtag);
 const uniqValueHashtag = (array) => array.length === new Set(array).size;
-
 
 const checkOnValidHashtag = (hashtags) => {
   if (!hashtags.every(isValidHashtag)) {

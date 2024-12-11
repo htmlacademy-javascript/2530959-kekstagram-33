@@ -1,5 +1,5 @@
 import { isEscapeKey } from './utils.js';
-import { onChangeSelectionEffect } from './foto-effect.js';
+import { onEffectsListChange } from './foto-effect.js';
 import { resetScaleValue } from './change-foto-scale.js';
 import { pristine } from './validation-form.js';
 import { ErrorsStatus, closeKeyDownErrorstatusNotice } from './open-upload-photos-form-alert.js';
@@ -17,8 +17,8 @@ const commentFieldElement = formUploadElement.querySelector('.text__description'
 let popUpsStack = [];
 
 const removeAlertPrestine = () => {
-  const pristineErrorElement = document.querySelectorAll('.pristine-error');
-  pristineErrorElement.forEach((item) => {
+  const pristineErrorElements = document.querySelectorAll('.pristine-error');
+  pristineErrorElements.forEach((item) => {
     item.remove();
     pristine.reset();
   });
@@ -37,29 +37,28 @@ const clickOpenFormModal = (element) => {
     evt.preventDefault();
     showFormElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
-    closeFormElement.addEventListener('click', onclickCloseFormModal);
+    closeFormElement.addEventListener('click', onButtonFormCloseClick);
     sliderContainerElement.classList.add('hidden');
-    effectsListElement.addEventListener('change', onChangeSelectionEffect);
+    effectsListElement.addEventListener('change', onEffectsListChange);
     document.addEventListener('keydown', onCloseEscKeydown);
     popUpsStack.push(element);
   });
 };
 
 
-const onAddEventEscClose = () => {
+const onEscEventListenerAdd = () => {
   document.addEventListener('keydown', onCloseEscKeydown);
 };
 
-const onRemoveEnentEscClose = () => {
+const onEscEventListenerRemove = () => {
   document.removeEventListener('keydown', onCloseEscKeydown);
 };
 
-function onclickCloseFormModal() {
+function onButtonFormCloseClick() {
   showFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onCloseEscKeydown);
-  closeFormElement.removeEventListener('click', onclickCloseFormModal);
-  effectsListElement.removeEventListener('change', onChangeSelectionEffect);
+  closeFormElement.removeEventListener('click', onButtonFormCloseClick);
+  effectsListElement.removeEventListener('change', onEffectsListChange);
   document.removeEventListener('keydown', onCloseEscKeydown);
   resetErrorsConfig();
 }
@@ -76,25 +75,25 @@ function onCloseEscKeydown (evt) {
     } if (popUpsStack.length === 1) {
       evt.preventDefault();
       popUpsStack = [];
-      return onclickCloseFormModal();
+      return onButtonFormCloseClick();
     }
   }
 }
 
 const removeHashtagEscKeydown = () => {
-  hashtagsInputElement.addEventListener('focus', onRemoveEnentEscClose);
+  hashtagsInputElement.addEventListener('focus', onEscEventListenerRemove);
 };
 
 const removeCommentsEscKeydown = () => {
-  commentFieldElement.addEventListener('focus', onRemoveEnentEscClose);
+  commentFieldElement.addEventListener('focus', onEscEventListenerRemove);
 };
 
 const addHandlerBlurHashtag = () => {
-  hashtagsInputElement.addEventListener('blur', onAddEventEscClose);
+  hashtagsInputElement.addEventListener('blur', onEscEventListenerAdd);
 };
 
 const addHandlerBlurComments = () => {
-  commentFieldElement.addEventListener('blur', onAddEventEscClose);
+  commentFieldElement.addEventListener('blur', onEscEventListenerAdd);
 };
 
 const openFormModal = () => {
@@ -105,4 +104,4 @@ const openFormModal = () => {
   addHandlerBlurComments();
 };
 
-export { openFormModal, onclickCloseFormModal };
+export { openFormModal, onButtonFormCloseClick };

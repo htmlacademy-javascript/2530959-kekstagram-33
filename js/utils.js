@@ -1,5 +1,6 @@
-const isEscapeKey = (evt) => evt.key === 'Escape';
 const DEBOUNCE_TIME = 500;
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const debounce = (callback, timeoutDelay = DEBOUNCE_TIME) => {
   let timeoutId;

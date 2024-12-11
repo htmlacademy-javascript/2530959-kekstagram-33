@@ -1,7 +1,7 @@
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const fileChooserElement = document.querySelector('#upload-file');
 const previewElement = document.querySelector('.img-upload__preview img');
-const effectPreviewElement = document.querySelectorAll('.effects__preview');
+const effectsPreviewElement = document.querySelectorAll('.effects__preview');
 
 const uploadFilesForm = () => {
   fileChooserElement.addEventListener('change', () => {
@@ -11,7 +11,7 @@ const uploadFilesForm = () => {
     if (matches) {
       const imageUrl = URL.createObjectURL(file);
       previewElement.src = imageUrl;
-      effectPreviewElement.forEach((photoPreview) => {
+      effectsPreviewElement.forEach((photoPreview) => {
         photoPreview.style.backgroundImage = `url("${imageUrl}")`;
       });
     }
