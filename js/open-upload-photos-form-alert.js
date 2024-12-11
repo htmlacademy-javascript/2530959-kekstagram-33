@@ -31,10 +31,10 @@ const closeSuccessStatusNotice = (status) => {
   const statusButtonElement = statusNotice.querySelector(`.${status}__${TAG_BUTTON}`);
   const onStatusButtonClick = () => {
     statusNotice.remove();
-    document.removeEventListener('keydown', onEscKeydownDocument);
+    document.removeEventListener('keydown', onDocumentKeyDown);
     document.removeEventListener('click', onDocumentClick);
   };
-  function onEscKeydownDocument (evt){
+  function onDocumentKeyDown (evt){
     if (isEscapeKey(evt)) {
       onStatusButtonClick();
     }
@@ -45,7 +45,7 @@ const closeSuccessStatusNotice = (status) => {
     }
   }
   statusButtonElement.addEventListener('click', onStatusButtonClick);
-  document.addEventListener('keydown', onEscKeydownDocument);
+  document.addEventListener('keydown', onDocumentKeyDown);
   document.addEventListener('click', onDocumentClick);
 };
 

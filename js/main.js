@@ -1,6 +1,6 @@
 import '../vendor/pristine/pristine.min.js';
 import '../vendor/nouislider/nouislider.js';
-import { openFormModal, onclickCloseFormModal } from './open-upload-photos-form.js';
+import { openFormModal, onButtonFormCloseClick } from './open-upload-photos-form.js';
 import { setUploadFormSubmit } from './validation-form.js';
 import { changeScalePhoto } from './change-foto-scale.js';
 import { showstatusNotice, ErrorsStatus } from './open-upload-photos-form-alert.js';
@@ -19,4 +19,4 @@ await getData(
   () => showstatusNotice(`${ErrorsStatus.DATA_ERROR_STATUS}`),
 );
 uploadFilesForm();
-setUploadFormSubmit(onclickCloseFormModal);
+setUploadFormSubmit(onButtonFormCloseClick);
